@@ -1,1 +1,1 @@
-
+from .facultad import Facultad
