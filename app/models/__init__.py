@@ -6,3 +6,5 @@ from .materia import Materia
 from .tipoEspecialidad import TipoEspecialidad
 from .orientacion import Orientacion
 from .cargo import Cargo
+from .area import Area
+from .grupo import Grupo
