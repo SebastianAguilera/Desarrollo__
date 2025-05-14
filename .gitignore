@@ -1,8 +1,20 @@
 venv/
 .env
+<<<<<<< HEAD
 
 __pycache__/
 *.py[cod]
 *$py.class
 _data/
 migrations/
+=======
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+_data/
+
+#Carpeta de migraciones
+migrations/
+>>>>>>> fbe07ea3872dd2d4e1fd1a742be6a720e4e5b25e
