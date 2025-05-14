@@ -3,7 +3,7 @@ from flask import current_app
 from app import create_app
 from app.models import Materia
 
-class CartTestCase(unittest.TestCase):
+class MateriaTestCase(unittest.TestCase):
 
     def setUp(self):
         self.app = create_app()
