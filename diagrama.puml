@@ -83,13 +83,14 @@ package "Sistema Académico"{
     class Cargo {
         - nombre: str
         - puntos: int
-        
+
     }
-    
+
     class CategoriaCargo {
         - nombre: str
-    } 
-   
+    }
+
+
     class Materia {
         - nombre: str
         - codigo: str
@@ -112,6 +113,7 @@ package "Sistema Académico"{
     Especialidad -- TipoEspecialidad
     Facultad <-- Autoridad
     Facultad -- Universidad
+    Autoridad -- Cargo
     Cargo -- CategoriaCargo
     Cargo -- TipoDedicacion
 }
