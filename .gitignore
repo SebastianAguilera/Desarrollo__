@@ -1,2 +1,12 @@
 venv/
 .env
+
+# Byte-compiled / optimized / DLL files
+_pycache_/
+*.py[cod]
+*$py.class
+
+_data/
+
+#Carpeta de migraciones
+migrations/
