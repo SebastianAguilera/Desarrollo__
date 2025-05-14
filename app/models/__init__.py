@@ -5,3 +5,5 @@ from .plan import Plan
 from .materia import Materia
 from .tipoEspecialidad import TipoEspecialidad
 from .orientacion import Orientacion
+from .area import Area
+from .grupo import Grupo
