@@ -4,3 +4,4 @@ from .especialidad import Especialidad
 from .plan import Plan
 from .materia import Materia
 from .orientacion import Orientacion
+from .alumno import Alumno
