@@ -5,7 +5,6 @@ __pycache__/
 *$py.class
 *.pyc
 
-
 _data/
 
 #Carpeta de migraciones
