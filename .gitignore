@@ -1,2 +1,12 @@
 venv/
 .env
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+
+_data/
+
+#Carpeta de migraciones
+migrations/
