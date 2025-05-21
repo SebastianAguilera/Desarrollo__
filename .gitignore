@@ -13,3 +13,9 @@ _data/
 
 #Carpeta de migraciones
 migrations/
+
+# Ignorar configuración de VSCode
+.vscode/settings.json
+
+# Ignorar archivos de espacio de trabajo (workspace)
+*.code-workspace
