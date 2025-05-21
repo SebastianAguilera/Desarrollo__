@@ -1,0 +1,1 @@
+from .autoridad_respositorio import AutoridadRepository
