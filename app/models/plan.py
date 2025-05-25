@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from app.config import db
+from app import db
 from datetime import date;
 
 @dataclass(init=False, repr=True, eq=True)
