@@ -12,4 +12,5 @@ from .departamento import Departamento
 from .cargo import Cargo
 from .area import Area
 from .grupo import Grupo
+from .usuario import Usuario
 
