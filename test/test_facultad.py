@@ -109,9 +109,6 @@ class CartTestCase(unittest.TestCase):
         facultad_encontrada = FacultadService.buscar_facultad(facultad.id)
         self.assertIsNone(facultad_encontrada)
 
-
-
-
     def __crear_facultad(self):
         facultad = Facultad()
         facultad.nombre = 'Facultad de Ingenieria'
@@ -126,7 +123,5 @@ class CartTestCase(unittest.TestCase):
         facultad.email = "email"
         return facultad 
     
-
-
 if __name__ == '__main__':
     unittest.main()
