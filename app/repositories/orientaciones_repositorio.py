@@ -21,7 +21,7 @@ class OrientacionRepository:
     return entity
   
   @staticmethod
-  def eliminar_facultad(id: int) -> None:
+  def eliminar_orientacion(id: int) -> None:
     entity = OrientacionRepository.buscar_orientacion(id)
     db.session.delete(entity)
     db.session.commit()
