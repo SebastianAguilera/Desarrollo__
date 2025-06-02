@@ -4,18 +4,15 @@ class PlanService:
   
   @staticmethod
   def crear_plan(plan : Plan) -> Plan:
-    PlanRepository.crear_plan(plan)
-    return plan
+    return PlanRepository.crear_plan(plan)
   
   @staticmethod
   def buscar_plan_por_id(id: int) -> Plan | None:
-    plan = PlanRepository.buscar_plan_por_id(id)
-    return plan
+    return PlanRepository.buscar_plan_por_id(id)
 
   @staticmethod
   def listar_planes() -> list[Plan]:
-    planes = PlanRepository.listar_planes()
-    return planes
+    return PlanRepository.listar_planes()
   
   @staticmethod
   def actualizar_plan(id: int, plan: Plan) -> Plan | None:
@@ -31,5 +28,4 @@ class PlanService:
   
   @staticmethod
   def borrar_por_id(id: int) -> Plan | None:
-    eliminar_plan = PlanRepository.borrar_por_id(id)
-    return eliminar_plan
+    return PlanRepository.borrar_por_id(id)
