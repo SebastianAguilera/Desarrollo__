@@ -3,14 +3,8 @@ venv/
 
 #Variables de entorno
 .env
-<<<<<<< HEAD
 #Byte-compiled / optimized / DLL files
 _pycache_/
-=======
-
-# Byte-compiled / optimized / DLL files
-__pycache__/
->>>>>>> b1dad42da93eaaff805d10475d5e4a598a46a2d0
 *.py[cod]
 *$py.class
 
