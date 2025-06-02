@@ -17,6 +17,7 @@ class PlanTestCase(unittest.TestCase):
 
     def tearDown(self):
         db.session.remove()
+        db.drop_all()
         self.app_context.pop()
 
     def test_plan_creation(self):
@@ -44,6 +45,17 @@ class PlanTestCase(unittest.TestCase):
         self.assertEqual(plan_buscado.fechaInicio, '12 de noviembre 2024')
         self.assertEqual(plan_buscado.fechaFin, '12 de diciembre 2024')
     
+    def test_listar_planes(self):
+        plan1 = self.__nuevoPlan()
+        plan2 = self.__nuevoPlan()
+        plan2.nombre = 'Redes'
+        PlanService.crear_plan(plan1)
+        PlanService.crear_plan(plan2)
+        planes = PlanService.listar_planes()
+        self.assertEqual(len(planes), 2)
+        self.assertIn(plan1, planes)
+        self.assertIn(plan2, planes)
+
     def test_actualizar_plan(self):
         plan = self.__nuevoPlan()
         PlanService.crear_plan(plan)
