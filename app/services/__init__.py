@@ -1,1 +1,2 @@
 from .facultad_service import FacultadService
+from .usuario_service import UsuarioService
