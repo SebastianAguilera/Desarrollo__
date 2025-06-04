@@ -1,2 +1,6 @@
 from .facultad_repository import FacultadRepository
 from .usuario_repository import UsuarioRepository
+from .autoridad_respositorio import AutoridadRepository
+from .facultad_repository import FacultadRepository
+from .plan_repository import PlanRepository
+from .cargo_repository import CargoRepository
