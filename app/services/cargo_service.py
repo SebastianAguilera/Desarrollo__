@@ -16,7 +16,7 @@ class CargoService:
         return CargoRepository.listar_cargo()
     
     @staticmethod
-    def actualizar_cargo(id: int, cargo: Cargo) -> Cargo | None:
+    def actualizar_cargo(id: int, cargo: Cargo):
         cargo_existente = CargoRepository.buscar_cargo_por_id(id)
         if not cargo_existente:
             return None
