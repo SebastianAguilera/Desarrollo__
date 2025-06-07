@@ -5,3 +5,4 @@ from .cargo_repository import CargoRepository
 from .departamento_repositorio import DepartamentoRepository
 from .grado_repositorio import GradoRepository  
 from .orientacion_repositorio import OrientacionRepository
+from .categoria_cargo_repository import CategoriaCargoRepository
