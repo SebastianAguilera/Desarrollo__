@@ -2,3 +2,6 @@ from .autoridad_respositorio import AutoridadRepository
 from .facultad_repository import FacultadRepository
 from .plan_repository import PlanRepository
 from .cargo_repository import CargoRepository
+from .departamento_repositorio import DepartamentoRepository
+from .grado_repositorio import GradoRepository  
+from .orientacion_repositorio import OrientacionRepository
