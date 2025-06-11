@@ -9,3 +9,6 @@ from .departamento_repositorio import DepartamentoRepository
 from .grado_repositorio import GradoRepository  
 from .orientacion_repositorio import OrientacionRepository
 from .categoria_cargo_repository import CategoriaCargoRepository
+from .alumno_repository import AlumnoRepository
+from .area_repository import AreaRepository
+
