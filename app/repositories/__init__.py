@@ -1,3 +1,7 @@
 from .autoridad_respositorio import AutoridadRepository
 from .facultad_repository import FacultadRepository
 from .plan_repository import PlanRepository
+from .grupo_repository import GrupoRepository
+from .especialidad_repository import EspecialidadRepository
+from .tipoespecialidad_repository import TipoEspecialidadRepository
+from .grupo_repository import GrupoRepository
