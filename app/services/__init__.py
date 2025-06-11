@@ -8,3 +8,5 @@ from .departamento_service import DepartamentoService
 from .grado_service import GradoService
 from .orientacion_service import OrientacionService
 from .categoria_cargo_service import CategoriaCargoService
+from .alumno_service import AlumnoService
+
