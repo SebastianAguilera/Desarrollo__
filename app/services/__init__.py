@@ -9,4 +9,6 @@ from .grado_service import GradoService
 from .orientacion_service import OrientacionService
 from .categoria_cargo_service import CategoriaCargoService
 from .alumno_service import AlumnoService
+from .area_service import AreaService
+
 
