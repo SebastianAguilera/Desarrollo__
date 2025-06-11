@@ -5,6 +5,9 @@ class Universidad():
     nombre : str
     sigla : str
     tipo : str
-    anoFundacion : str
+    anioFundacion : str
+    direccion : str
+    telefono : str
+    email : str
 
     

@@ -24,10 +24,10 @@ class AlumnoTestCase(unittest.TestCase):
         alumno.apellido = "Apellido"
         alumno.nroDocumento = "12345678"
         alumno.tipoDocumento = "DNI"
-        alumno.fechaNacimiento = "aaaa-mm-dd"
-        alumno.sexo = "m=Masculino , f=Femenino"
+        alumno.fechaNacimiento = "aaaammdd"
+        alumno.sexo = "mMasculino , fFemenino"
         alumno.nroLegajo = 10066
-        alumno.fechaIngreso = "aaaa-mm-dd"
+        alumno.fechaIngreso = "aaaammdd"
         alumno.carrera = "Ingenieria en Sistemas"
 
         self.assertIsNotNone(alumno)
@@ -35,10 +35,10 @@ class AlumnoTestCase(unittest.TestCase):
         self.assertEqual(alumno.apellido, "Apellido")
         self.assertEqual(alumno.nroDocumento, "12345678")
         self.assertEqual(alumno.tipoDocumento, "DNI")   
-        self.assertEqual(alumno.fechaNacimiento, "aaaa-mm-dd")
-        self.assertEqual(alumno.sexo, "m=Masculino , f=Femenino")
+        self.assertEqual(alumno.fechaNacimiento, "aaaammdd")
+        self.assertEqual(alumno.sexo, "mMasculino , fFemenino")
         self.assertEqual(alumno.nroLegajo, 10066)
-        self.assertEqual(alumno.fechaIngreso, "aaaa-mm-dd")
+        self.assertEqual(alumno.fechaIngreso, "aaaammdd")
         self.assertEqual(alumno.carrera, "Ingenieria en Sistemas")
 
 if __name__ == '__main__':
