@@ -5,7 +5,7 @@ from app import db
 class UniversidadRepository:
 
   @staticmethod
-  def crear_facultad(Universidad: Universidad) -> Universidad:
+  def crear_universidad(universidad: Universidad) -> Universidad:
     db.session.add(universidad)
     db.session.commit()
     return universidad
@@ -18,15 +18,8 @@ class UniversidadRepository:
   def actualizar_universidad(universidad: Universidad, id: int) -> Universidad:
     entity = UniversidadRepository.buscar_universidad(id)
     entity.nombre = universidad.nombre
-
     entity.sigla = universidad.sigla
     entity.tipo = universidad.tipo
-    entity.anioFundacion = universidad.anioFundacion
-    entity.direccion = universidad.direccion
-    entity.telefono = universidad.telefono  
-    entity.email = universidad.email
-  
-
 
     db.session.commit()
     return entity
