@@ -2,33 +2,89 @@ import unittest
 from flask import current_app
 from app import create_app
 from app.models import Universidad
-import os
+from app.services import UniversidadService
+from app import db
 
-class AppTestCase(unittest.TestCase):
+class CartTestCase(unittest.TestCase):
 
     def setUp(self):
-        os.environ['FLASK_CONTEXT'] = 'testing'
         self.app = create_app()
         self.app_context = self.app.app_context()
         self.app_context.push()
+        db.create_all()
 
     def tearDown(self):
+        db.session.remove()
+        db.drop_all()
         self.app_context.pop()
 
     def test_app(self):
         self.assertIsNotNone(current_app)
+
+    def test_Universidad(self):
+        universidad= self.__crear_universidad()
+        self.assertEqual(universidad.nombre, 'Universidad Tecnologica Nacional')
+        self.assertEqual(universidad.sigla, "UTN")
+        self.assertEqual(universidad.tipo, "publica")
+
+
+    def test_crear_universidad(self):
+        universidad= self.__crear_universidad()
+        universidad_guardada = UniversidadService.crear_universidad(universidad)
+        self.assertIsNotNone(universidad_guardada)
+        self.assertIsNotNone(universidad.id)
+        self.assertGreaterEqual(universidad_guardada.id, 1)
+        self.assertEqual(universidad_guardada.nombre, universidad.nombre) 
+        self.assertEqual(universidad_guardada.sigla, universidad.sigla)
+        self.assertEqual(universidad_guardada.tipo, universidad.tipo)
+
+
+    def test_buscar_universidad(self):
+        
+        universidad = self.__crear_universidad()
+        UniversidadService.crear_universidad(universidad)
+
+        universidad_encontrada= UniversidadService.buscar_universidad(1)
+        self.assertIsNotNone(universidad)
+        self.assertIsNotNone(universidad.id)
+        self.assertGreaterEqual(universidad.id, 1)
+        self.assertEqual(universidad.nombre, universidad_encontrada.nombre)
+        self.assertEqual(universidad.sigla, universidad_encontrada.sigla)
+        self.assertEqual(universidad.tipo, universidad_encontrada.tipo)
+
+    def test_actualizar_universidad(self):
+        universidad = self.__crear_universidad()
+        UniversidadService.crear_universidad(universidad)
+        nuevosdatosuniversidad= Universidad()
+        nuevosdatosuniversidad.nombre = "Universidad Tecnologica Nacional Modificada"
+        nuevosdatosuniversidad.sigla = "UTN Modificada"
+        nuevosdatosuniversidad.tipo = 'privada'
     
-    def test_cart(self):
+        universidadmodificada = UniversidadService.actualizar_universidad(nuevosdatosuniversidad, universidad.id)
+        universidadencontrada = UniversidadService.buscar_universidad(universidad.id)
+        self.assertIsNotNone(universidadencontrada)
+        self.assertIsNotNone(universidadencontrada.id)
+        self.assertGreaterEqual(universidadencontrada.id, 1)
+        self.assertEqual(universidadencontrada.nombre, universidadmodificada.nombre)
+        self.assertEqual(universidadencontrada.sigla, universidadmodificada.sigla)  
+        self.assertEqual(universidadencontrada.tipo, universidadmodificada.tipo)    
+
+    
+
+    def test_eliminar_universidad(self):
+        universidad = self.__crear_universidad()
+        UniversidadService.crear_universidad(universidad)
+        UniversidadService.eliminar_universidad(universidad.id)
+        universidad_encontrada = UniversidadService.buscar_universidad(universidad.id)
+        self.assertIsNone(universidad_encontrada)
+
+    def __crear_universidad(self):
         universidad = Universidad()
         universidad.nombre = "Universidad Tecnologica Nacional"
         universidad.sigla = "UTN"
         universidad.tipo = "publica"
-        universidad.anoFundacion = "1948"
-        self.assertIsNotNone(universidad)
-        self.assertEqual(universidad.nombre, "Universidad Tecnologica Nacional")
-        self.assertEqual(universidad.sigla, "UTN")
-        self.assertEqual(universidad.tipo, "publica")
-        self.assertEqual(universidad.anoFundacion, "1948")
-
+    
+        return universidad
+    
 if __name__ == '__main__':
     unittest.main()
