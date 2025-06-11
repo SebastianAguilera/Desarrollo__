@@ -1,5 +1,6 @@
 from .universidad import Universidad
 from .facultad import Facultad
+from .autoridad import Autoridad
 from .especialidad import Especialidad
 from .plan import Plan
 from .materia import Materia
@@ -13,4 +14,4 @@ from .cargo import Cargo
 from .area import Area
 from .grupo import Grupo
 from .usuario import Usuario
-
+from .categoria_cargo import CategoriaCargo

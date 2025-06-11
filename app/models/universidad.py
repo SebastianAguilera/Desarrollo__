@@ -1,13 +1,10 @@
 from dataclasses import dataclass
+from app import db
 
 @dataclass(init=False, repr=True, eq=True)
 class Universidad():
-    nombre : str
-    sigla : str
-    tipo : str
-    anioFundacion : str
-    direccion : str
-    telefono : str
-    email : str
-
-    
+    __tablename__ = 'universidades'
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nombre = db.Column(db.String(100), nullable=False, unique=True)
+    sigla = db.Column(db.String(10), nullable=False, unique=True)
+    tipo = db.Column(db.String(20), nullable=False)    
