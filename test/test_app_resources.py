@@ -3,6 +3,7 @@ from flask import current_app
 from app import create_app
 import os
 
+
 class AlumnoTestCase(unittest.TestCase):
 
     def setUp(self):
