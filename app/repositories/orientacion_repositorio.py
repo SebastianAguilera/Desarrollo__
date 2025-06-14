@@ -4,7 +4,7 @@ from app import db
 class OrientacionRepository:
 
   @staticmethod
-  def crear_facultad(orientacion: Orientacion):
+  def crear_orientacion(orientacion: Orientacion):
     db.session.add(orientacion)
     db.session.commit()
     return orientacion
@@ -18,7 +18,7 @@ class OrientacionRepository:
     entity = OrientacionRepository.buscar_orientacion(id)
     entity.nombre = orientacion.nombre
     db.session.commit()
-    return entity
+    return orientacion
   
   @staticmethod
   def eliminar_orientacion(id: int) -> None:

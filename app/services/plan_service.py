@@ -27,5 +27,5 @@ class PlanService:
     return plan_actualizado
   
   @staticmethod
-  def borrar_por_id(id: int) -> Plan | None:
+  def borrar_por_id(id: int):
     return PlanRepository.borrar_por_id(id)

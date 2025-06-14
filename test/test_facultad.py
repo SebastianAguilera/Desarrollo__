@@ -33,9 +33,10 @@ class CartTestCase(unittest.TestCase):
         self.assertEqual(facultad.telefono, "telefono")
         self.assertEqual(facultad.contacto, "contacto")
         self.assertEqual(facultad.email, "email")
+        
     def test_crear_facultad(self):
         facultad= self.__crear_facultad()
-        facultad_guardada =FacultadService.crear_facultad(facultad)
+        facultad_guardada = FacultadService.crear_facultad(facultad)
         self.assertIsNotNone(facultad_guardada)
         self.assertIsNotNone(facultad_guardada.id)
         self.assertGreaterEqual(facultad_guardada.id, 1)
@@ -75,7 +76,7 @@ class CartTestCase(unittest.TestCase):
     def test_actualizar_facultad(self):
         facultad = self.__crear_facultad()
         FacultadService.crear_facultad(facultad)
-        nuevosdatosfacultad= Facultad()
+        nuevosdatosfacultad = Facultad()
         nuevosdatosfacultad.nombre = 'Facultad de Ingenieriaa'
         nuevosdatosfacultad.abreviatura = 'FI'
         nuevosdatosfacultad.directorio = "directorio"

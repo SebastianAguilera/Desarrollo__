@@ -23,7 +23,7 @@ class PlanRepository:
     return plan_existente
   
   @staticmethod
-  def borrar_por_id(id: int) -> Plan | None:
+  def borrar_por_id(id: int):
     plan = db.session.query(Plan).filter_by(id=id).first()
     if not plan:
       return None
