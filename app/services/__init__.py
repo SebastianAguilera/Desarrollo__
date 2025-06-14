@@ -13,3 +13,5 @@ from .orientacion_service import OrientacionService
 from .categoria_cargo_service import CategoriaCargoService
 from .alumno_service import AlumnoService
 from .area_service import AreaService
+from .materia_service import MateriaService
+from .tipoDedicacionService import TipoDedicacionService

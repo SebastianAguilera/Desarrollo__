@@ -15,3 +15,4 @@ from .area import Area
 from .grupo import Grupo
 from .usuario import Usuario
 from .categoria_cargo import CategoriaCargo
+from .tipoDedicacion import TipoDedicacion
