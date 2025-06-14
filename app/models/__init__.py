@@ -16,3 +16,4 @@ from .grupo import Grupo
 from .usuario import Usuario
 from .nota import Nota
 from .categoria_cargo import CategoriaCargo
+from .tipoDedicacion import TipoDedicacion
