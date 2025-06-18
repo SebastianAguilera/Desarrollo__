@@ -2,6 +2,7 @@ import unittest
 from flask import current_app
 from app import create_app
 from app.models import Facultad
+from app.models import Universidad
 from app.services import FacultadService
 from app import db
 
@@ -109,20 +110,38 @@ class CartTestCase(unittest.TestCase):
         FacultadService.eliminar_facultad(facultad.id)
         facultad_encontrada = FacultadService.buscar_facultad(facultad.id)
         self.assertIsNone(facultad_encontrada)
+    
+    def test_facultad_tiene_universidad(self):
+        facultad = self.__crear_facultad()
+        FacultadService.crear_facultad(facultad)
+
+        facultad_guardada = FacultadService.buscar_facultad(facultad.id)
+        self.assertIsNotNone(facultad_guardada.universidad)
+        self.assertEqual(facultad_guardada.universidad.nombre, "Universidad Tecnologica Nacional")
+
 
     def __crear_facultad(self):
-        facultad = Facultad()
-        facultad.nombre = 'Facultad de Ingenieria'
-        facultad.abreviatura = 'FI'
-        facultad.directorio = "directorio"
-        facultad.sigla = "sigla"
-        facultad.codigoPostal = "codigoPostal"
-        facultad.ciudad = "ciudad"
-        facultad.domicilio = "domicilio"
-        facultad.telefono = "telefono"
-        facultad.contacto = "contacto"
-        facultad.email = "email"
-        return facultad 
+         universidad = Universidad(
+        nombre="Universidad Tecnologica Nacional",
+        sigla="UTN",
+        tipo="publica"
+         )
+         db.session.add(universidad)
+         db.session.commit()
+
+         facultad = Facultad()
+         facultad.nombre = 'Facultad de Ingenieria'
+         facultad.abreviatura = 'FI'
+         facultad.directorio = "directorio"
+         facultad.sigla = "sigla"
+         facultad.codigoPostal = "codigoPostal"
+         facultad.ciudad = "ciudad"
+         facultad.domicilio = "domicilio"
+         facultad.telefono = "telefono"
+         facultad.contacto = "contacto"
+         facultad.email = "email"
+         facultad.universidad_id = universidad.id
+         return facultad 
     
 if __name__ == '__main__':
     unittest.main()

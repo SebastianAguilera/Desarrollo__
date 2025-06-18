@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from sqlalchemy.orm import relationship
 from app import db
 @dataclass(init=False, repr=True, eq=True)
 class Facultad(db.Model):
@@ -14,4 +15,9 @@ class Facultad(db.Model):
   telefono: str = db.Column(db.String(100), nullable=False)
   contacto: str = db.Column(db.String(100), nullable=False)
   email: str = db.Column(db.String(100), nullable=False)
+
+ 
+  universidad_id = db.Column(db.Integer, db.ForeignKey('universidades.id'))
+  universidad = relationship("Universidad", back_populates="facultades") 
+
 
