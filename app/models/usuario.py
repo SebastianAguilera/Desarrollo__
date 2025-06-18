@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from app import db
+
 @dataclass(init=False, repr=True, eq=True)
 class Usuario(db.Model):
   __tablename__ = 'usuarios'
@@ -7,3 +8,6 @@ class Usuario(db.Model):
   nombredeusuario: str = db.Column(db.String(100), unique=True, nullable=False)
   password: str = db.Column(db.String(255), nullable=False)
   actividad: str =  db.Column(db.Boolean, nullable=False)
+  
+  alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
+  

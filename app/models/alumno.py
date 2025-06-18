@@ -14,3 +14,6 @@ class Alumno(db.Model):
     nroLegajo = db.Column(db.Integer, nullable=False, unique=True)
     fechaIngreso = db.Column(db.String(20), nullable=False)
     carrera = db.Column(db.String(100), nullable=False)
+    
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), unique = True, nullable = False)
+    usuario = db.relationship('Usuario', back_populates='alumno')
