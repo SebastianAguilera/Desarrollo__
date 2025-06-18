@@ -18,3 +18,5 @@ class Alumno(db.Model):
     #relacion de alumno con notas
     notas = db.relationship("Nota")
 
+    #TODO: relacionar con tipo de documento
+    #TODO: aplicar ley de demeter
