@@ -23,7 +23,7 @@ class EspecialidadTestCase(unittest.TestCase):
 
     def test_especialidad(self):
         especialidad = self.__crear_especialidad()   
-        self.assertEqual(especialidad.nombre, 'Nombre de especialdad')
+        self.assertEqual(especialidad.nombre, 'Nombre de especialidad')
         self.assertEqual(especialidad.letra, 'Letra de la especialidad')
         self.assertEqual(especialidad.observacion, 'Observacion de la especialidad')
        

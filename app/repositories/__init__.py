@@ -16,3 +16,5 @@ from .alumno_repository import AlumnoRepository
 from .area_repository import AreaRepository
 from .materia_repository import MateriaRepository
 from .tipoDedicacion_repository import TipoDedicacionRepository
+from .usuario_repository import UsuarioRepository
+from .nota_repository import NotaRepository
