@@ -15,3 +15,5 @@ from .alumno_service import AlumnoService
 from .area_service import AreaService
 from .materia_service import MateriaService
 from .tipoDedicacionService import TipoDedicacionService
+from .usuario_service import UsuarioService
+from .nota_service import NotaService
