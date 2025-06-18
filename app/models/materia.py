@@ -14,6 +14,8 @@ class Materia(db.Model):
     promocional: bool =  db.Column(db.Boolean(), nullable = False)
     nivel: str =  db.Column(db.String(), nullable = False)
     
+    area_id = db.Column(db.Integer, db.ForeignKey("areas.id"))
+    area = db.relationship("Area", back_populates="materias")
     
-    
+    #notas = db.relationship("Nota", back_populates="materia", cascade="all, delete-orphan")
     
