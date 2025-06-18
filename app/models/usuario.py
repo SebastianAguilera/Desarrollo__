@@ -9,6 +9,6 @@ class Usuario(db.Model):
   password: str = db.Column(db.String(255), nullable=False)
   actividad: str =  db.Column(db.Boolean, nullable=False)
   
-  alumno = dgitb.relationship('Alumno', back_populates='usuario', uselist=False)
+  alumno = db.relationship('Alumno', back_populates='usuario', uselist=False)
   
   actividad: bool =  db.Column(db.Boolean, nullable=False)
