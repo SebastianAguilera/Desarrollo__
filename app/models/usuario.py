@@ -6,4 +6,4 @@ class Usuario(db.Model):
   id : int = db.Column(db.Integer, primary_key=True, autoincrement=True)
   nombredeusuario: str = db.Column(db.String(100), unique=True, nullable=False)
   password: str = db.Column(db.String(255), nullable=False)
-  actividad: str =  db.Column(db.Boolean, nullable=False)
+  actividad: bool =  db.Column(db.Boolean, nullable=False)

@@ -14,3 +14,7 @@ class Alumno(db.Model):
     nroLegajo = db.Column(db.Integer, nullable=False, unique=True)
     fechaIngreso = db.Column(db.String(20), nullable=False)
     carrera = db.Column(db.String(100), nullable=False)
+
+    #relacion de alumno con notas
+    notas = db.relationship("Nota")
+

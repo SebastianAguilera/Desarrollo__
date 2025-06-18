@@ -21,6 +21,13 @@ class EspecialidadTestCase(unittest.TestCase):
     def test_app(self):
         self.assertIsNotNone(current_app)
 
+    def test_especialidad(self):
+        especialidad = self.__crear_especialidad()   
+        self.assertEqual(especialidad.nombre, 'Nombre de especialidad')
+        self.assertEqual(especialidad.letra, 'Letra de la especialidad')
+        self.assertEqual(especialidad.observacion, 'Observacion de la especialidad')
+       
+
     def test_crear_especialidad(self):
         especialidad = self.__crear_especialidad()
         especialidad_guardada = EspecialidadService.crear_especialidad(especialidad)
