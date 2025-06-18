@@ -1,4 +1,3 @@
-
 from .facultad_repository import FacultadRepository
 from .universidad_repository import UniversidadRepository
 from .autoridad_respositorio import AutoridadRepository
@@ -15,6 +14,7 @@ from .orientacion_repositorio import OrientacionRepository
 from .categoria_cargo_repository import CategoriaCargoRepository
 from .alumno_repository import AlumnoRepository
 from .area_repository import AreaRepository
-
 from .materia_repository import MateriaRepository
 from .tipoDedicacion_repository import TipoDedicacionRepository
+from .usuario_repository import UsuarioRepository
+from .nota_repository import NotaRepository

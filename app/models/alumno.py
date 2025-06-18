@@ -17,3 +17,7 @@ class Alumno(db.Model):
     
     usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), unique = True, nullable = False)
     usuario = db.relationship('Usuario', back_populates='alumno')
+
+    #relacion de alumno con notas
+    notas = db.relationship("Nota")
+
