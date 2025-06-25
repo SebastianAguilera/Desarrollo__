@@ -9,4 +9,6 @@ class Universidad(db.Model):
     sigla = db.Column(db.String(100), nullable=False, unique=True)
     tipo = db.Column(db.String(20), nullable=False)
 
+    facultades = db.relationship("Facultad", back_populates="universidad")
+
     
