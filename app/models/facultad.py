@@ -21,3 +21,6 @@ class Facultad(db.Model):
   universidad = relationship("Universidad", back_populates="facultades") 
 
 
+#def asociar_autoridad(self, autoridad):
+#    if autoridad not in self.autoridades:
+#        self.autoridades.append(autoridad)
