@@ -17,3 +17,4 @@ class Autoridad(db.Model):
     materias = db.relatioship('Materia', secondary= 'autoridad_materias', backref='autoridades')
     def __post_init__(self):
         self.cargo = Cargo.query.get(self.cargo_id) if self.cargo_id else None
+

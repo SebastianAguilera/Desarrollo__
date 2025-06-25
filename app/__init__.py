@@ -27,9 +27,9 @@ def create_app() -> Flask:
     ma.init_app(app)
     #jwt.init_app(app)
 
-    from app.resources import home
+    from app.resources import home, certificado_bp
     app.register_blueprint(home, url_prefix="/api/v1")
-
+    app.register_blueprint(certificado_bp, url_prefix="/api/v1")
     @app.shell_context_processor    
     def ctx():
         return {"app": app}
