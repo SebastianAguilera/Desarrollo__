@@ -8,7 +8,7 @@ class Especialidad(db.Model):
     nombre = db.Column(db.String(100), nullable=False)
     letra = db.Column(db.String(100), nullable=False)
     observacion = db.Column(db.String(100), nullable=False)
+    alumnos = db.relationship('Alumno', back_populates = 'especialidad')
 
-    def __repr__(self):
-        return f"<Especialidad {self.id}: {self.nombre}>"
+  
 

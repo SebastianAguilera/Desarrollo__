@@ -10,5 +10,6 @@ class Universidad(db.Model):
     tipo = db.Column(db.String(20), nullable=False)
 
     facultades = db.relationship("Facultad", back_populates="universidad")
+    alumnos = db.relationship('Alumno', back_populates='universidad')
 
     

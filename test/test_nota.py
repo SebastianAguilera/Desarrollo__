@@ -2,8 +2,8 @@ import unittest
 import os
 from app import db
 from app import create_app
-from app.models import Nota, Alumno
-from app.services import AlumnoService, NotaService
+from app.models import Nota, Alumno, Universidad, Especialidad
+from app.services import AlumnoService, NotaService, UniversidadService, EspecialidadService
 
 
 class NotaTestCase(unittest.TestCase):
@@ -50,9 +50,6 @@ class NotaTestCase(unittest.TestCase):
         self.assertEqual(nota_encontrada.materia_id, 1)
         self.assertEqual(nota_encontrada.autoridad_id, 1)
         self.assertEqual(nota_encontrada.nota, 10)
-        
-       
-
 
     def __crear_nota(self):
         alumno = self.__crear_alumno()
@@ -63,11 +60,21 @@ class NotaTestCase(unittest.TestCase):
         nota.autoridad_id = 1
         nota.nota = 10
         return nota
-    
-
-
 
     def __crear_alumno (self):
+        universidad = Universidad()
+        universidad.nombre = "Universidad Tecnologica Nacional"
+        universidad.sigla = "UTN"
+        universidad.tipo = "publica"
+        UniversidadService.crear_universidad(universidad)
+
+        especialidad = Especialidad()
+        especialidad.nombre = "Ingenieria en Sistemas"
+        especialidad.letra = "IS"
+        especialidad.observacion = "Ingenieria en Sistemas"
+        EspecialidadService.crear_especialidad(especialidad)
+        
+        
         alumno = Alumno()
         alumno.nombre = "Agostina"
         alumno.apellido = "Gualpa"
@@ -78,6 +85,8 @@ class NotaTestCase(unittest.TestCase):
         alumno.nroLegajo = 10066
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
+        alumno.universidad_id = universidad.id
+        alumno.especialidad_id = especialidad.id  
         return alumno
 
 

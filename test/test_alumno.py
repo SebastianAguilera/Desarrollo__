@@ -1,8 +1,8 @@
 import unittest
 from flask import current_app
 from app import create_app
-from app.models import Alumno
-from app.services import AlumnoService
+from app.models import Alumno, Universidad, Especialidad
+from app.services import AlumnoService, UniversidadService, EspecialidadService
 from app import db
 
 class CartTestCase(unittest.TestCase):
@@ -32,6 +32,7 @@ class CartTestCase(unittest.TestCase):
         self.assertEqual(alumno.nroLegajo, 10066)
         self.assertEqual(alumno.fechaIngreso, "2020-01-01")
         self.assertEqual(alumno.carrera, "Ingenieria en Sistemas")
+        self.assertEqual(alumno.universidad_id, 1)
 
 
     def test_crear_alumno(self):
@@ -109,7 +110,20 @@ class CartTestCase(unittest.TestCase):
         alumno_encontrada = AlumnoService.buscar_alumno(alumno.id)
         self.assertIsNone(alumno_encontrada)
 
+
     def __crear_alumno (self):
+        universidad = Universidad()
+        universidad.nombre = "Universidad Tecnologica Nacional"
+        universidad.sigla = "UTN"
+        universidad.tipo = "publica"
+        UniversidadService.crear_universidad(universidad)
+
+        especialidad = Especialidad()
+        especialidad.nombre = "Ingenieria en Sistemas"
+        especialidad.letra = "IS"
+        especialidad.observacion = "Ingenieria en Sistemas"
+        EspecialidadService.crear_especialidad(especialidad)
+
         alumno = Alumno()
         alumno.nombre = "Agostina"
         alumno.apellido = "Gualpa"
@@ -120,6 +134,9 @@ class CartTestCase(unittest.TestCase):
         alumno.nroLegajo = 10066
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
+        alumno.universidad_id = universidad.id
+        alumno.especialidad_id = especialidad.id
+        
 
         return alumno
     
