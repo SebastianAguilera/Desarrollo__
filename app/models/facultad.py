@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from sqlalchemy.orm import relationship
 from app import db
 @dataclass(init=False, repr=True, eq=True)
 class Facultad(db.Model):
@@ -15,3 +16,11 @@ class Facultad(db.Model):
   contacto: str = db.Column(db.String(100), nullable=False)
   email: str = db.Column(db.String(100), nullable=False)
 
+ 
+  universidad_id = db.Column(db.Integer, db.ForeignKey('universidades.id'))
+  universidad = relationship("Universidad", back_populates="facultades") 
+
+
+#def asociar_autoridad(self, autoridad):
+#    if autoridad not in self.autoridades:
+#        self.autoridades.append(autoridad)

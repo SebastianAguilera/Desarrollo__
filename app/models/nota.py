@@ -11,4 +11,5 @@ class Nota(db.Model):
   autoridad_id: int = db.Column(db.Integer)
   nota: float = db.Column(db.Float)
 
-  #materia_id : int = db.Column(db.Integer, db.ForeignKey('materias.id'))
+  materia_id = db.Column(db.Integer, db.ForeignKey('materias.id'))
+  materia = db.relationship("Materia", back_populates="notas")
