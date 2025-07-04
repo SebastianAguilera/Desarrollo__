@@ -22,3 +22,6 @@ class Facultad(db.Model):
   especialidades = db.relationship("Especialidad", back_populates="facultad")
 
 
+#def asociar_autoridad(self, autoridad):
+#    if autoridad not in self.autoridades:
+#        self.autoridades.append(autoridad)
