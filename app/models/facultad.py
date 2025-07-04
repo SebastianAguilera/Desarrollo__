@@ -19,4 +19,6 @@ class Facultad(db.Model):
   universidad_id = db.Column(db.Integer, db.ForeignKey('universidades.id'))
   universidad = db.relationship("Universidad", back_populates="facultades") 
 
+  especialidades = db.relationship("Especialidad", back_populates="facultad")
+
 
