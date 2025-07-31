@@ -1,8 +1,9 @@
 import unittest
 from flask import current_app
 from app import create_app
-from app.models import Alumno
+from app.models import Alumno, Usuario
 from app.services import AlumnoService
+from app.services import UsuarioService
 from app import db
 
 class CartTestCase(unittest.TestCase):
@@ -35,6 +36,8 @@ class CartTestCase(unittest.TestCase):
 
 
     def test_crear_alumno(self):
+
+        
         alumno= self.__crear_alumno()
         alumno_guardada = AlumnoService.crear_alumno(alumno)
         self.assertIsNotNone(alumno_guardada)
@@ -110,6 +113,12 @@ class CartTestCase(unittest.TestCase):
         self.assertIsNone(alumno_encontrada)
 
     def __crear_alumno (self):
+        usuario = Usuario()
+        usuario.nombredeusuario = 'Pepita'
+        usuario.password = 'hola'
+        usuario.actividad = True
+        usuario_guardado = UsuarioService.guardar_usuario(usuario)
+
         alumno = Alumno()
         alumno.nombre = "Agostina"
         alumno.apellido = "Gualpa"
@@ -120,6 +129,7 @@ class CartTestCase(unittest.TestCase):
         alumno.nroLegajo = 10066
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
+        alumno.usuario_id = usuario_guardado.id
 
         return alumno
     
