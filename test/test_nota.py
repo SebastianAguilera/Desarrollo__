@@ -2,8 +2,8 @@ import unittest
 import os
 from app import db
 from app import create_app
-from app.models import Nota, Alumno
-from app.services import AlumnoService, NotaService
+from app.models import Nota, Alumno, Universidad, Especialidad, Usuario, Materia
+from app.services import AlumnoService, NotaService, UniversidadService, EspecialidadService,  UsuarioService, MateriaService
 
 
 class NotaTestCase(unittest.TestCase):
@@ -50,24 +50,47 @@ class NotaTestCase(unittest.TestCase):
         self.assertEqual(nota_encontrada.materia_id, 1)
         self.assertEqual(nota_encontrada.autoridad_id, 1)
         self.assertEqual(nota_encontrada.nota, 10)
-        
-       
-
 
     def __crear_nota(self):
+        materia = Materia(
+            nombre= 'Algebra y geometria',
+            diseno_curricular = 'diseno curricular',
+            horas_dictadas = '36',
+            promocional = True,
+            nivel = '1',
+        )
+        MateriaService.crear_materia(materia) 
+
         alumno = self.__crear_alumno()
         alumno_guardado = AlumnoService.crear_alumno(alumno)
         nota = Nota()
         nota.alumno_id = alumno_guardado.id
-        nota.materia_id = 1
+        nota.materia_id = materia.id
         nota.autoridad_id = 1
         nota.nota = 10
         return nota
-    
-
-
 
     def __crear_alumno (self):
+        universidad = Universidad()
+        universidad.nombre = "Universidad Tecnologica Nacional"
+        universidad.sigla = "UTN"
+        universidad.tipo = "publica"
+        UniversidadService.crear_universidad(universidad)
+  
+
+        especialidad = Especialidad()
+        especialidad.nombre = "Ingenieria en Sistemas"
+        especialidad.letra = "IS"
+        especialidad.observacion = "Ingenieria en Sistemas"
+        EspecialidadService.crear_especialidad(especialidad)
+
+        usuario = Usuario()
+        usuario.nombredeusuario = "alguien"
+        usuario.password = "alguien.123"
+        usuario.actividad = True
+        UsuarioService.guardar_usuario(usuario)
+        
+        
         alumno = Alumno()
         alumno.nombre = "Agostina"
         alumno.apellido = "Gualpa"
@@ -78,6 +101,9 @@ class NotaTestCase(unittest.TestCase):
         alumno.nroLegajo = 10066
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
+        alumno.universidad_id = universidad.id
+        alumno.especialidad_id = especialidad.id  
+        alumno.usuario_id = usuario.id
         return alumno
 
 

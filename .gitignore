@@ -20,3 +20,5 @@ migrations/
 *.code-workspace
 
 docker/.env
+
+.vscode/

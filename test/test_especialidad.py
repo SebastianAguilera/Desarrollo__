@@ -1,14 +1,15 @@
 import unittest
+import os
 from flask import current_app
 from app import create_app, db
-from app.models import Especialidad
-from app.services import EspecialidadService
+from app.models import Especialidad, Facultad, Universidad
+from app.services import EspecialidadService, FacultadService, UniversidadService
 
 class EspecialidadTestCase(unittest.TestCase):
 
     def setUp(self):
+        os.environ['FLASK_CONTEXT'] = 'testing'
         self.app = create_app()
-        self.app.config['TESTING'] = True
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
@@ -69,11 +70,31 @@ class EspecialidadTestCase(unittest.TestCase):
         self.assertIsNone(especialidad_encontrada)
 
     def __crear_especialidad(self):
-        return Especialidad(
-            nombre='Nombre de especialidad',
-            letra='Letra de la especialidad',
-            observacion='Observacion de la especialidad'
+        universidad = Universidad(
+        nombre="Universidad Tecnologica Nacional",
+        sigla="UTN",
+        tipo="publica"
         )
+        UniversidadService.crear_universidad(universidad)
+        facultad = Facultad()
+        facultad.nombre = 'Facultad de Ingenieria'
+        facultad.abreviatura = 'FI'
+        facultad.directorio = "directorio"
+        facultad.sigla = "sigla"
+        facultad.codigoPostal = "codigoPostal"
+        facultad.ciudad = "ciudad"
+        facultad.domicilio = "domicilio"
+        facultad.telefono = "telefono"
+        facultad.contacto = "contacto"
+        facultad.email = "email"
+        facultad.universidad_id = universidad.id
+        FacultadService.crear_facultad(facultad)
+        especialidad = Especialidad()
+        especialidad.nombre='Nombre de especialidad'
+        especialidad.letra='Letra de la especialidad'
+        especialidad.observacion='Observacion de la especialidad'
+        especialidad.facultad_id=facultad.id
+        return especialidad
 
 if __name__ == '__main__':
     unittest.main()

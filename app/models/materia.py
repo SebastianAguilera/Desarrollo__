@@ -17,5 +17,5 @@ class Materia(db.Model):
     area_id = db.Column(db.Integer, db.ForeignKey("areas.id"))
     area = db.relationship("Area", back_populates="materias")
     
-    #notas = db.relationship("Nota", back_populates="materia", cascade="all, delete-orphan")
+    notas = db.relationship("Nota", back_populates="materia", cascade="all, delete-orphan")
     

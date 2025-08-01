@@ -1,9 +1,10 @@
 import unittest
 from flask import current_app
 from app import create_app
-from app.models import Alumno
-from app.services import AlumnoService
+from app.models import Alumno, Universidad, Especialidad, Facultad, Usuario
+from app.services import AlumnoService, UniversidadService, EspecialidadService, FacultadService, UsuarioService
 from app import db
+
 
 class CartTestCase(unittest.TestCase):
 
@@ -32,6 +33,7 @@ class CartTestCase(unittest.TestCase):
         self.assertEqual(alumno.nroLegajo, 10066)
         self.assertEqual(alumno.fechaIngreso, "2020-01-01")
         self.assertEqual(alumno.carrera, "Ingenieria en Sistemas")
+        self.assertEqual(alumno.universidad_id, 1)
 
 
     def test_crear_alumno(self):
@@ -48,7 +50,7 @@ class CartTestCase(unittest.TestCase):
         self.assertEqual(alumno_guardada.sexo, alumno.sexo)
         self.assertEqual(alumno_guardada.nroLegajo, alumno.nroLegajo)
         self.assertEqual(alumno_guardada.fechaIngreso, alumno.fechaIngreso)
-        self.assertEqual(alumno_guardada.carrera, alumno.carrera)
+        self.assertEqual(alumno_guardada.carrera, alumno.carrera)      
 
 
     def test_buscar_alumno(self):
@@ -109,7 +111,41 @@ class CartTestCase(unittest.TestCase):
         alumno_encontrada = AlumnoService.buscar_alumno(alumno.id)
         self.assertIsNone(alumno_encontrada)
 
+
     def __crear_alumno (self):
+        usuario = Usuario()
+        usuario.nombredeusuario = "alguien"
+        usuario.password = "alguien.123"
+        usuario.actividad = True
+        UsuarioService.guardar_usuario(usuario)
+
+        universidad = Universidad()
+        universidad.nombre = "Universidad Tecnologica Nacional"
+        universidad.sigla = "UTN"
+        universidad.tipo = "publica"
+        UniversidadService.crear_universidad(universidad)
+
+        facultad = Facultad()
+        facultad.nombre = 'Facultad de Ingenieria'
+        facultad.abreviatura = 'FI'
+        facultad.directorio = "directorio"
+        facultad.sigla = "sigla"
+        facultad.codigoPostal = "codigoPostal"
+        facultad.ciudad = "ciudad"
+        facultad.domicilio = "domicilio"
+        facultad.telefono = "telefono"
+        facultad.contacto = "contacto"
+        facultad.email = "email"
+        facultad.universidad_id = universidad.id
+        FacultadService.crear_facultad(facultad)
+
+        especialidad = Especialidad()
+        especialidad.nombre = "Ingenieria en Sistemas"
+        especialidad.letra = "IS"
+        especialidad.observacion = "Ingenieria en Sistemas"
+        especialidad.facultad_id = facultad.id
+        EspecialidadService.crear_especialidad(especialidad)
+
         alumno = Alumno()
         alumno.nombre = "Agostina"
         alumno.apellido = "Gualpa"
@@ -120,6 +156,10 @@ class CartTestCase(unittest.TestCase):
         alumno.nroLegajo = 10066
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
+        alumno.universidad_id = universidad.id
+        alumno.especialidad_id = especialidad.id
+        alumno.usuario_id = usuario.id
+        
 
         return alumno
     
