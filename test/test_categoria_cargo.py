@@ -3,8 +3,8 @@ import os
 from app import db
 from flask import current_app
 from app import create_app
-from app.models import CategoriaCargo
-from app.services import CategoriaCargoService
+from app.models import CategoriaCargo, Cargo
+from app.services import CategoriaCargoService, CargoService
 
 class CategoriaCargoTestCase(unittest.TestCase):
 
@@ -67,6 +67,22 @@ class CategoriaCargoTestCase(unittest.TestCase):
         self.assertEqual(categoria_borrada.nombre, 'Administrativo')
         categoria_encontrada = CategoriaCargoService.buscar_categoria_cargo_por_id(categoria_cargo.id)
         self.assertIsNone(categoria_encontrada)
+
+    def test_categoria_cargo_con_cargos(self):
+        categoria_cargo = self._nuevaCategoriaCargo()
+        CategoriaCargoService.crear_categoria_cargo(categoria_cargo)
+
+        cargo = Cargo(
+            nombre='Decano', 
+            puntos=2, 
+            categoria_cargo_id=categoria_cargo.id)
+        
+        CargoService.crear_cargo(cargo)
+
+        categoria_con_cargos = CategoriaCargoService.buscar_categoria_cargo_por_id(categoria_cargo.id)
+        self.assertIsNotNone(categoria_con_cargos.cargos)
+        self.assertEqual(len(categoria_con_cargos.cargos), 1)
+        self.assertEqual(categoria_con_cargos.cargos[0].nombre, 'Decano')
 
     def _nuevaCategoriaCargo(self):
         categoria_cargo = CategoriaCargo(nombre='Administrativo')

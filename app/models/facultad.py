@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from sqlalchemy.orm import relationship
 from app import db
 @dataclass(init=False, repr=True, eq=True)
 class Facultad(db.Model):
@@ -18,7 +17,9 @@ class Facultad(db.Model):
 
  
   universidad_id = db.Column(db.Integer, db.ForeignKey('universidades.id'))
-  universidad = relationship("Universidad", back_populates="facultades") 
+  universidad = db.relationship("Universidad", back_populates="facultades") 
+
+  especialidades = db.relationship("Especialidad", back_populates="facultad")
 
 
 #def asociar_autoridad(self, autoridad):

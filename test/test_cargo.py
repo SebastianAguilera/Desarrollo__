@@ -3,8 +3,8 @@ import os
 from app import db
 from flask import current_app
 from app import create_app
-from app.models import Cargo
-from app.services import CargoService
+from app.models import Cargo, CategoriaCargo
+from app.services import CargoService, CategoriaCargoService
 
 class CargoTestCase(unittest.TestCase):
 
@@ -75,10 +75,22 @@ class CargoTestCase(unittest.TestCase):
         cargo_buscado = CargoService.buscar_cargo_por_id(cargo.id)
         self.assertIsNone(cargo_buscado)
 
+    def test_cargo_tiene_categoria(self):
+        cargo = self._nuevoCargo()
+        CargoService.crear_cargo(cargo)
+
+        cargo_guardada = CargoService.buscar_cargo_por_id(cargo.id)
+        self.assertIsNotNone(cargo_guardada.categoria)
+        self.assertEqual(cargo_guardada.categoria.nombre, 'Administrativo')
+
     def _nuevoCargo(self):
+        categoria = CategoriaCargo(nombre='Administrativo')
+        CategoriaCargoService.crear_categoria_cargo(categoria)
+
         cargo = Cargo()
         cargo.nombre = 'Decano'
         cargo.puntos = 2
+        cargo.categoria_cargo_id = categoria.id
         return cargo
 
 if __name__ == '__main__':

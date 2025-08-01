@@ -1,9 +1,8 @@
 import unittest
 from flask import current_app
 from app import create_app, db
-from app.models import Universidad
-from app.models.facultad import Facultad
-from app.services import UniversidadService
+from app.models import Universidad, Facultad
+from app.services import UniversidadService,  FacultadService
 
 
 class CartTestCase(unittest.TestCase):
@@ -94,9 +93,7 @@ class CartTestCase(unittest.TestCase):
             email='contacto@frm.utn.edu.ar',
             universidad_id=universidad.id
         )
-        db.session.add(facultad)
-        db.session.commit()
-
+        FacultadService.crear_facultad(facultad)
         universidad_con_facultades = UniversidadService.buscar_universidad(universidad.id)
         self.assertIsNotNone(universidad_con_facultades.facultades)
         self.assertEqual(len(universidad_con_facultades.facultades), 1)

@@ -9,3 +9,8 @@ class Plan(db.Model):
   fechaInicio: str = db.Column(db.String, nullable=False)
   fechaFin : str = db.Column(db.String, nullable=False)
   observacion: str = db.Column(db.String(100), nullable=False)
+
+ 
+
+
+

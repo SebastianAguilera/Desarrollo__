@@ -1,9 +1,8 @@
 import unittest
 from flask import current_app
 from app import create_app
-from app.models import Facultad
-from app.models import Universidad
-from app.services import FacultadService
+from app.models import Facultad, Universidad
+from app.services import FacultadService, UniversidadService
 from app import db
 
 class CartTestCase(unittest.TestCase):
@@ -34,6 +33,7 @@ class CartTestCase(unittest.TestCase):
         self.assertEqual(facultad.telefono, "telefono")
         self.assertEqual(facultad.contacto, "contacto")
         self.assertEqual(facultad.email, "email")
+        self.assertEqual(facultad.universidad_id, 1)
         
     def test_crear_facultad(self):
         facultad= self.__crear_facultad()
@@ -51,9 +51,8 @@ class CartTestCase(unittest.TestCase):
         self.assertEqual(facultad_guardada.telefono, facultad.telefono)
         self.assertEqual(facultad_guardada.contacto, facultad.contacto)
         self.assertEqual(facultad_guardada.email, facultad.email)
+        self.assertEqual(facultad_guardada.universidad_id, 1)
 
-
-    
     def test_buscar_facultad(self):
         
         facultad = self.__crear_facultad()
@@ -121,27 +120,25 @@ class CartTestCase(unittest.TestCase):
 
 
     def __crear_facultad(self):
-         universidad = Universidad(
+        universidad = Universidad(
         nombre="Universidad Tecnologica Nacional",
         sigla="UTN",
         tipo="publica"
-         )
-         db.session.add(universidad)
-         db.session.commit()
-
-         facultad = Facultad()
-         facultad.nombre = 'Facultad de Ingenieria'
-         facultad.abreviatura = 'FI'
-         facultad.directorio = "directorio"
-         facultad.sigla = "sigla"
-         facultad.codigoPostal = "codigoPostal"
-         facultad.ciudad = "ciudad"
-         facultad.domicilio = "domicilio"
-         facultad.telefono = "telefono"
-         facultad.contacto = "contacto"
-         facultad.email = "email"
-         facultad.universidad_id = universidad.id
-         return facultad 
+        )
+        UniversidadService.crear_universidad(universidad)
+        facultad = Facultad()
+        facultad.nombre = 'Facultad de Ingenieria'
+        facultad.abreviatura = 'FI'
+        facultad.directorio = "directorio"
+        facultad.sigla = "sigla"
+        facultad.codigoPostal = "codigoPostal"
+        facultad.ciudad = "ciudad"
+        facultad.domicilio = "domicilio"
+        facultad.telefono = "telefono"
+        facultad.contacto = "contacto"
+        facultad.email = "email"
+        facultad.universidad_id = universidad.id
+        return facultad 
     
 if __name__ == '__main__':
     unittest.main()

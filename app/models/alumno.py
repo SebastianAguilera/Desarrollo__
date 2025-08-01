@@ -21,5 +21,14 @@ class Alumno(db.Model):
     #relacion de alumno con notas
     notas = db.relationship("Nota")
 
+    #relacion de alumno con universidad
+    universidad_id = db.Column(db.Integer, db.ForeignKey('universidades.id'))
+    universidad = db.relationship('Universidad', back_populates='alumnos')
+
+    #relacion de alumno con especialidad
+    especialidad_id : int =db.Column(db.Integer, db.ForeignKey('especialidades.id'), nullable = False)
+    especialidad = db.relationship('Especialidad', back_populates = 'alumnos')
+
+
     #TODO: relacionar con tipo de documento
     #TODO: aplicar ley de demeter
