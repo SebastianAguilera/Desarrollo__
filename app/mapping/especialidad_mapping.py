@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, post_load, validate
 from markupsafe import escape
-from models import Especialidad
+from app.models.especialidad import Especialidad
 
 class EspecialidadMapping(Schema):
     id = fields.Int(dump_only=True)

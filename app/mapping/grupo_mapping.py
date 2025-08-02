@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields, post_load, validate
 from markupsafe import escape
-from models import Grupo
+from app.models import Grupo
 
 class GrupoMapping(Schema):
     id = fields.Int(dump_only=True)
