@@ -12,7 +12,7 @@ class Config(object):
     SQLALCHEMY_RECORD_QUERIES = True
     
     @staticmethod
-    def init_app(app):
+    def init_app(app) -> None:
         pass
 
 class TestConfig(Config):
@@ -45,3 +45,4 @@ def factory(app: str) -> Config:
     }
     
     return configuration[app]
+    

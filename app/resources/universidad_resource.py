@@ -22,6 +22,11 @@ def buscar_por_id(id):
     universidad = UniversidadService.buscar_universidad(id)
     return universidad_mapping.dump(universidad), 200
 
+@universidad_bp.route('/universidad', methods=['GET'])
+def listar_universidades():
+    universidades = UniversidadService.listar_universidades()
+    return universidad_mapping.dump(universidades, many=True), 200
+
 @universidad_bp.route('/universidad', methods=['POST']) #Funciona
 def crear():
     universidad = universidad_mapping.load(request.get_json())
