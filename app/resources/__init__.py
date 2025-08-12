@@ -5,4 +5,5 @@ from .cargo_resource import cargo_bp
 from .categoria_cargo_resource import categoria_cargo_bp
 from .especialidad_resource import especialidad_bp
 from .tipo_especialidad_resource import tipo_especialidad_bp    
-from .grupo_resource import grupo_bp    
+from .grupo_resource import grupo_bp 
+from .usuario_resource import usuario_bp   
