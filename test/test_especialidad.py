@@ -90,8 +90,8 @@ class EspecialidadTestCase(unittest.TestCase):
         facultad.universidad_id = universidad.id
         FacultadService.crear_facultad(facultad)
         especialidad = Especialidad()
-        especialidad.nombre='Nombre de especialidad',
-        especialidad.letra='Letra de la especialidad',
+        especialidad.nombre='Nombre de especialidad'
+        especialidad.letra='Letra de la especialidad'
         especialidad.observacion='Observacion de la especialidad'
         especialidad.facultad_id=facultad.id
         return especialidad

@@ -1,11 +1,10 @@
 import unittest
 from flask import current_app
 from app import create_app
-from app.models import Alumno, Usuario
 from app.services import AlumnoService
 from app.services import UsuarioService
-from app.models import Alumno, Universidad, Especialidad, Facultad
-from app.services import AlumnoService, UniversidadService, EspecialidadService, FacultadService
+from app.models import Alumno, Universidad, Especialidad, Facultad, Usuario
+from app.services import AlumnoService, UniversidadService, EspecialidadService, FacultadService, UsuarioService
 from app import db
 
 
@@ -119,10 +118,11 @@ class CartTestCase(unittest.TestCase):
 
     def __crear_alumno (self):
         usuario = Usuario()
-        usuario.nombredeusuario = 'Pepita'
-        usuario.password = 'hola'
+
+        usuario.nombredeusuario = "alguien"
+        usuario.password = "alguien.123"
         usuario.actividad = True
-        usuario_guardado = UsuarioService.guardar_usuario(usuario)
+        UsuarioService.guardar_usuario(usuario)
         
         universidad = Universidad()
         universidad.nombre = "Universidad Tecnologica Nacional"
@@ -161,9 +161,10 @@ class CartTestCase(unittest.TestCase):
         alumno.nroLegajo = 10066
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
-        alumno.usuario_id = usuario_guardado.id
+        alumno.usuario_id = usuario.id
         alumno.universidad_id = universidad.id
         alumno.especialidad_id = especialidad.id
+        alumno.usuario_id = usuario.id
         
 
         return alumno
