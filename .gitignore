@@ -19,4 +19,6 @@ migrations/
 # Ignorar archivos de espacio de trabajo (workspace)
 *.code-workspace
 
+docker/.env
+
 .vscode/

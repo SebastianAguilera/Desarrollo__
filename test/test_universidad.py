@@ -37,6 +37,13 @@ class CartTestCase(unittest.TestCase):
         self.assertEqual(universidad_guardada.sigla, universidad.sigla)
         self.assertEqual(universidad_guardada.tipo, universidad.tipo)
 
+    def test_listar_universidades(self):
+        universidad = self.__crear_universidad()
+        UniversidadService.crear_universidad(universidad)
+        universidades = UniversidadService.listar_universidades()
+        self.assertIsNotNone(universidades)
+        self.assertGreaterEqual(len(universidades), 1)
+
     def test_buscar_universidad(self):
         universidad = self.__crear_universidad()
         UniversidadService.crear_universidad(universidad)

@@ -11,6 +11,10 @@ class UniversidadRepository:
     return universidad
   
   @staticmethod
+  def listar_universidades() -> list[Universidad]:
+    return db.session.query(Universidad).all()
+  
+  @staticmethod
   def buscar_universidad(id: int) -> Universidad:
     return db.session.query(Universidad).filter(Universidad.id == id).one_or_none()
   
