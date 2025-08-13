@@ -20,7 +20,7 @@ def crear():
 @autoridad_bp.route('/autoridad/<int:id>', methods=['PUT']) 
 def actualizar(id):
     autoridad = autoridad_mapping.load(request.get_json()) 
-    AutoridadService.actualizar_autoridad, id
+    AutoridadService.actualizar_autoridad (id,autoridad)
     return jsonify("autoridad actualizada exitosamente"), 200 
 
 @autoridad_bp.route('/autoridad/<int:id>', methods=['DELETE'])

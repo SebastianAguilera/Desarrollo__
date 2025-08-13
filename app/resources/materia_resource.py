@@ -20,7 +20,7 @@ def crear():
 @materia_bp.route('/materia/<int:id>', methods=['PUT'])
 def actualizar(id):
     materia = materia_mapping.load(request.get_json())
-    MateriaService.actualizar_materia(materia, id)
+    MateriaService.actualizar_materia(id, materia)
     return jsonify("Materia actualizada exitosamente"), 200
 
 @materia_bp.route('/materia/<int:id>', methods=['DELETE'])

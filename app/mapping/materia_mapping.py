@@ -11,6 +11,7 @@ class MateriaMapping(Schema):
     nivel = fields.String(required=True, validate=validate.Length(min=1, max=50))
     area_id = fields.Integer(required=True)
     
+    
     @post_load
     def nueva_materia(self, data, **kwargs):
         # Escapar solo los strings

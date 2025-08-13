@@ -26,7 +26,7 @@ def create_app() -> Flask:
     ma.init_app(app)
     #jwt.init_app(app)
 
-    from app.resources import home, certificado_bp, universidad_bp, cargo_bp, categoria_cargo_bp, materia_bp, autoridad_bp
+    from app.resources import home, certificado_bp, universidad_bp, cargo_bp, categoria_cargo_bp, materia_bp, autoridad_bp, tipo_dedicacion_bp
     
     app.register_blueprint(home, url_prefix="/api/v1")
     app.register_blueprint(certificado_bp, url_prefix="/api/v1")
@@ -35,6 +35,7 @@ def create_app() -> Flask:
     app.register_blueprint(categoria_cargo_bp, url_prefix="/api/v1")
     app.register_blueprint(autoridad_bp, url_prefix="/api/v1")
     app.register_blueprint(materia_bp, url_prefix="/api/v1")
+    app.register_blueprint(tipo_dedicacion_bp, url_prefix="/api/v1")
 
     @app.shell_context_processor    
     def ctx():
