@@ -2,8 +2,9 @@ from marshmallow import Schema, fields, post_load, validate
 from app.models.universidad import Universidad
 from markupsafe import escape
 
+
 class UniversidadMapping(Schema):
-    id = fields.Integer() #el dump_only=True es para obtener
+    hashids = fields.String(attribute="hashid", dump_only=True)
     nombre = fields.String(required=True, validate = validate.Length(min=1, max=100)) #max de la base de datos
     sigla = fields.String(required=True, validate = validate.Length(min=1, max=10))
     tipo = fields.Str(required=True) 

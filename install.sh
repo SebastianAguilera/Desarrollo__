@@ -1,3 +1,3 @@
 #!/bin/bash
-source $HOME/environments/gral/bin/activate
-pip3 install -r requirements.txt
+source venv/Scripts/activate  # Activar entorno venv en Windows
+uv pip install -r requirements.txt

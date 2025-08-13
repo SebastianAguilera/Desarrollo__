@@ -7,6 +7,10 @@ class UniversidadService:
     UniversidadRepository.crear_universidad(universidad)
     return universidad
 
+  def listar_universidades():
+    universidades = UniversidadRepository.listar_universidades()
+    return universidades
+
   def buscar_universidad(id: int):
     universidad = UniversidadRepository.buscar_universidad(id)
     return universidad
