@@ -2,7 +2,9 @@ from flask import jsonify, Blueprint, request
 from app.mapping.universidad_mapping import UniversidadMapping
 from app.services.universidad_service import UniversidadService
 from markupsafe import escape
+
 universidad_bp = Blueprint('universidad', __name__)
+
 universidad_mapping = UniversidadMapping()
 #from app.validators import validate_with
 
