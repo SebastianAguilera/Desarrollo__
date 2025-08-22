@@ -37,5 +37,4 @@ def borrar_por_id(id):
 def sanitizar_grado_entrada(request):
     grado = grado_mapping.load(request.get_json())
     grado.nombre = escape(grado.nombre)
-    grado.sigla = escape(grado.sigla)
     return grado
