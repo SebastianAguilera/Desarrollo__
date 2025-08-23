@@ -32,7 +32,7 @@ def create_app() -> Flask:
     ma.init_app(app)
     #jwt.init_app(app)
 
-    from app.resources import home, certificado_bp, universidad_bp, cargo_bp, categoria_cargo_bp, especialidad_bp, tipo_especialidad_bp, grupo_bp, usuario_bp
+    from app.resources import home, certificado_bp, universidad_bp, cargo_bp, categoria_cargo_bp, especialidad_bp, tipo_especialidad_bp, grupo_bp, usuario_bp, facultad_bp
 
     app.register_blueprint(home, url_prefix="/api/v1")
     app.register_blueprint(certificado_bp, url_prefix="/api/v1")
@@ -43,6 +43,7 @@ def create_app() -> Flask:
     app.register_blueprint(tipo_especialidad_bp, url_prefix="/api/v1")  
     app.register_blueprint(grupo_bp, url_prefix="/api/v1")
     app.register_blueprint(usuario_bp, url_prefix="/api/v1")
+    app.register_blueprint(facultad_bp, url_prefix="/api/v1")
 
     @app.shell_context_processor    
     def ctx():

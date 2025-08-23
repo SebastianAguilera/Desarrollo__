@@ -7,3 +7,4 @@ from .especialidad_resource import especialidad_bp
 from .tipo_especialidad_resource import tipo_especialidad_bp    
 from .grupo_resource import grupo_bp 
 from .usuario_resource import usuario_bp   
+from .facultad_resource import facultad_bp
