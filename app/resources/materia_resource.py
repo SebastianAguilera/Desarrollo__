@@ -11,6 +11,12 @@ def buscar_por_id(id):
     materia = MateriaService.buscar_por_id(id)
     return materia_mapping.dump(materia), 200
 
+@materia_bp.route('/materia', methods=['GET'])
+def obtener_todas():
+    materias = MateriaService.buscar_todas()  # Método que devuelve todas las materias
+    resultado = materia_mapping.dump(materias, many=True)  # Serializa la lista
+    return jsonify(resultado), 200
+
 @materia_bp.route('/materia', methods=['POST'])
 def crear():
     materia = materia_mapping.load(request.get_json())
@@ -39,3 +45,4 @@ def sanitizar_materia_entrada(request):
     if isinstance(materia.nivel, str):
         materia.nivel = escape(materia.nivel)
     return materia
+
