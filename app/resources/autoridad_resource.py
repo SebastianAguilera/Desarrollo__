@@ -6,7 +6,7 @@ from markupsafe import escape
 autoridad_bp = Blueprint('autoridad', __name__)
 autoridad_mapping = AutoridadMapping()
 
-@autoridad_bp.route('/autoridad/<int:id>', methods=['GET']) 
+@autoridad_bp.route('/autoridad/<hashid:id>', methods=['GET']) 
 def buscar_por_id(id):
     autoridad =AutoridadService.buscar_por_id(id)
     return autoridad_mapping.dump(autoridad), 200
