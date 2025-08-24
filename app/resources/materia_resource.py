@@ -6,7 +6,7 @@ from markupsafe import escape
 materia_bp = Blueprint('materia', __name__)
 materia_mapping = MateriaMapping()
 
-@materia_bp.route('/materia/<int:id>', methods=['GET'])
+@materia_bp.route('/materia/<hashid:id>', methods=['GET'])
 def buscar_por_id(id):
     materia = MateriaService.buscar_por_id(id)
     return materia_mapping.dump(materia), 200
@@ -23,13 +23,13 @@ def crear():
     MateriaService.crear_materia(materia)
     return jsonify("Materia creada exitosamente"), 201
 
-@materia_bp.route('/materia/<int:id>', methods=['PUT'])
+@materia_bp.route('/materia/<hashid:id>', methods=['PUT'])
 def actualizar(id):
     materia = materia_mapping.load(request.get_json())
     MateriaService.actualizar_materia(id, materia)
     return jsonify("Materia actualizada exitosamente"), 200
 
-@materia_bp.route('/materia/<int:id>', methods=['DELETE'])
+@materia_bp.route('/materia/<hashid:id>', methods=['DELETE'])
 def borrar_por_id(id):
     MateriaService.borrar_materia(id)
     return jsonify("Materia borrada exitosamente"), 200

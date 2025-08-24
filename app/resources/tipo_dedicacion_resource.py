@@ -23,13 +23,13 @@ def crear():
     TipoDedicacionService.crear_tipo_dedicacion(tipo_dedicacion)
     return jsonify("tipo_dedicacion creada exitosamente"), 201 
 
-@tipo_dedicacion_bp.route('/tipo_dedicacion/<int:id>', methods=['PUT']) 
+@tipo_dedicacion_bp.route('/tipo_dedicacion/<hashid:id>', methods=['PUT']) 
 def actualizar(id):
     tipo_dedicacion = tipo_dedicacion_mapping.load(request.get_json()) 
     TipoDedicacionService.actualizar_tipo_dedicacion, id
     return jsonify("tipo_dedicacion actualizada exitosamente"), 200 
 
-@tipo_dedicacion_bp.route('/tipo_dedicacion/<int:id>', methods=['DELETE'])
+@tipo_dedicacion_bp.route('/tipo_dedicacion/<hashid:id>', methods=['DELETE'])
 def borrar_por_id(id):
     tipo_dedicacion = TipoDedicacionService.borrar_tipo_dedicacion(id)
     return jsonify("tipo_dedicacion borrada exitosamente"), 200 

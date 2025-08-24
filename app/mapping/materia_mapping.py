@@ -3,7 +3,7 @@ from app.models.materia import Materia
 from markupsafe import escape
 
 class MateriaMapping(Schema):
-    id = fields.Integer(dump_only=True) 
+    hashid = fields.String(attribute="hashid",dump_only=True) 
     nombre = fields.String(required=True, validate=validate.Length(min=1, max=100))
     diseno_curricular = fields.String(required=True, validate=validate.Length(min=1, max=100))
     horas_dictadas = fields.String(required=True, validate=validate.Length(min=1, max=50))
