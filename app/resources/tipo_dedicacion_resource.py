@@ -11,6 +11,12 @@ def buscar_por_id(id):
     tipo_dedicacion =TipoDedicacionService.buscar_por_id(id)
     return tipo_dedicacion_mapping.dump(tipo_dedicacion), 200
 
+@tipo_dedicacion_bp.route('/tipo_dedicacion', methods=['GET'])
+def obtener_todas():
+    tipo_dedicacion = TipoDedicacionService.buscar_todas()  
+    resultado = tipo_dedicacion_mapping.dump(tipo_dedicacion, many=True)  
+    return jsonify(resultado), 200
+
 @tipo_dedicacion_bp.route('/tipo_dedicacion', methods=['POST'])
 def crear():
     tipo_dedicacion = tipo_dedicacion_mapping.load(request.get_json())

@@ -11,6 +11,12 @@ def buscar_por_id(id):
     autoridad =AutoridadService.buscar_por_id(id)
     return autoridad_mapping.dump(autoridad), 200
 
+@autoridad_bp.route('/autoridad', methods=['GET'])
+def obtener_todas():
+    autoridades = AutoridadService.buscar_todas() 
+    resultado = autoridad_mapping.dump(autoridades, many=True)  # Serializa la lista
+    return jsonify(resultado), 200
+
 @autoridad_bp.route('/autoridad', methods=['POST'])
 def crear():
     autoridad = autoridad_mapping.load(request.get_json())

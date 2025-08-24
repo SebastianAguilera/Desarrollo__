@@ -14,6 +14,10 @@ class MateriaService:
         return MateriaRepository.buscar_por_id(id)
     
     @staticmethod
+    def buscar_todas():
+        return MateriaRepository.buscar_todas()
+    
+    @staticmethod
     def actualizar_materia( id: int,materia: Materia):
         return MateriaRepository.actualizar_materia(id,materia)
     
