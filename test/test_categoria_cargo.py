@@ -27,7 +27,7 @@ class CategoriaCargoTestCase(unittest.TestCase):
     
     def test_crear_categoria_cargo(self):
         categoria_cargo = self._nuevaCategoriaCargo()
-        CategoriaCargoService.crear_categoria_cargo(categoria_cargo)
+        CategoriaCargoService.crear(categoria_cargo)
         self.assertIsNotNone(categoria_cargo)
         self.assertIsNotNone(categoria_cargo.id)
         self.assertGreaterEqual(categoria_cargo.id, 1)
@@ -35,51 +35,50 @@ class CategoriaCargoTestCase(unittest.TestCase):
     
     def test_buscar_categoria_cargo(self):
         categoria_cargo = self._nuevaCategoriaCargo()
-        CategoriaCargoService.crear_categoria_cargo(categoria_cargo)
-        categoria_encontrada = CategoriaCargoService.buscar_categoria_cargo_por_id(categoria_cargo.id)
+        CategoriaCargoService.crear(categoria_cargo)
+        categoria_encontrada = CategoriaCargoService.buscar_por_id(categoria_cargo.id)
         self.assertIsNotNone(categoria_encontrada)
         self.assertEqual(categoria_encontrada.nombre, 'Administrativo')
     
-    def test_listar_categorias_cargo(self):
+    def test_buscar_categorias_cargos(self):
         categoria1 = self._nuevaCategoriaCargo()
         categoria2 = self._nuevaCategoriaCargo()
         categoria2.nombre = 'Docente'
-        CategoriaCargoService.crear_categoria_cargo(categoria1)
-        CategoriaCargoService.crear_categoria_cargo(categoria2)
-        categorias = CategoriaCargoService.listar_categorias_cargo()
+        CategoriaCargoService.crear(categoria1)
+        CategoriaCargoService.crear(categoria2)
+        categorias = CategoriaCargoService.buscar_todos()
         self.assertEqual(len(categorias), 2)
         self.assertIn(categoria1, categorias)
         self.assertIn(categoria2, categorias)
     
     def test_actualizar_categoria_cargo(self):
         categoria_cargo = self._nuevaCategoriaCargo()
-        CategoriaCargoService.crear_categoria_cargo(categoria_cargo)
+        CategoriaCargoService.crear(categoria_cargo)
         categoria_cargo.nombre = 'Administrativo Actualizado'
-        categoria_actualizada = CategoriaCargoService.actualizar_categoria_cargo(categoria_cargo.id, categoria_cargo)
+        categoria_actualizada = CategoriaCargoService.actualizar(categoria_cargo.id, categoria_cargo)
         self.assertIsNotNone(categoria_actualizada)
         self.assertEqual(categoria_actualizada.nombre, 'Administrativo Actualizado')
     
     def test_borrar_categoria_cargo(self):
         categoria_cargo = self._nuevaCategoriaCargo()
-        CategoriaCargoService.crear_categoria_cargo(categoria_cargo)
+        CategoriaCargoService.crear(categoria_cargo)
         categoria_borrada = CategoriaCargoService.borrar_por_id(categoria_cargo.id)
         self.assertIsNotNone(categoria_borrada)
         self.assertEqual(categoria_borrada.nombre, 'Administrativo')
-        categoria_encontrada = CategoriaCargoService.buscar_categoria_cargo_por_id(categoria_cargo.id)
+        categoria_encontrada = CategoriaCargoService.buscar_por_id(categoria_cargo.id)
         self.assertIsNone(categoria_encontrada)
 
     def test_categoria_cargo_con_cargos(self):
         categoria_cargo = self._nuevaCategoriaCargo()
-        CategoriaCargoService.crear_categoria_cargo(categoria_cargo)
+        CategoriaCargoService.crear(categoria_cargo)
 
         cargo = Cargo(
             nombre='Decano', 
             puntos=2, 
             categoria_cargo_id=categoria_cargo.id)
-        
-        CargoService.crear_cargo(cargo)
+        CargoService.crear(cargo)
 
-        categoria_con_cargos = CategoriaCargoService.buscar_categoria_cargo_por_id(categoria_cargo.id)
+        categoria_con_cargos = CategoriaCargoService.buscar_por_id(categoria_cargo.id)
         self.assertIsNotNone(categoria_con_cargos.cargos)
         self.assertEqual(len(categoria_con_cargos.cargos), 1)
         self.assertEqual(categoria_con_cargos.cargos[0].nombre, 'Decano')
