@@ -1,9 +1,9 @@
-- SYSACAD
+# SYSACAD
 
 Aplicación de gestión de universidades desarrollada en Python con el framework Flask.
 Permite crear, leer, actualizar y eliminar información de universidades.
 
-CARACTERISTICAS
+# CARACTERISTICAS
 
 CRUD de universidades
 
@@ -13,7 +13,7 @@ Migraciones con Flask-Migrate
 
 Configuración mediante variables de entorno (.env)
 
-INSTALACION
+# INSTALACION
 
 1. Clonar el repositorio
 

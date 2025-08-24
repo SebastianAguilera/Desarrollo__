@@ -4,6 +4,7 @@ from app.services.universidad_service import UniversidadService
 from markupsafe import escape
 import json
 import logging
+from app.validators import validate_with
 
 
 universidad_bp = Blueprint('universidad', __name__)
@@ -20,8 +21,8 @@ def buscar_por_id(id):
 @universidad_bp.route('/universidad', methods=['GET'])
 def listar_universidades():
     page: int = request.headers.get('X-page', 1, type=int)
-    per_page: int = request.headers.get('X-per-page', 10, type=int) #devuelve registros por pagina
-    filters_str : str|None = request.headers.get('X-filters', None, type=str) #enviar algo a null, agujero negro
+    per_page: int = request.headers.get('X-per-page', 10, type=int) 
+    filters_str : str|None = request.headers.get('X-filters', None, type=str) 
     logging.info("page: {}, per_page: {}, filters: {}".format(page, per_page, filters_str))
     if filters_str:
         filters = json.loads(filters_str)
@@ -31,22 +32,21 @@ def listar_universidades():
     return universidad_mapping.dump(universidades, many=True), 200
 
 @universidad_bp.route('/universidad', methods=['POST']) 
-def crear():
-    universidad = universidad_mapping.load(request.get_json())
+@validate_with(UniversidadMapping)
+def crear(universidad):
     UniversidadService.crear_universidad(universidad)
-    return jsonify("Universidad creada exitosamente"), 201 #201 significa creado exitosamente
+    return jsonify("Universidad creada exitosamente"), 201 
 
-@universidad_bp.route('/universidad/<hashid:id>', methods=['PUT']) #Funciona
-#@validate_with(UniversidadMapping) #validar acciones con marshmallow, 
-def actualizar(id):
-    universidad = universidad_mapping.load(request.get_json()) #cada vez que se llama al load sanitiza
+@universidad_bp.route('/universidad/<hashid:id>', methods=['PUT'])
+@validate_with(UniversidadMapping) #validar acciones con marshmallow, validate_with en carpeta validators
+def actualizar(universidad, id):
     UniversidadService.actualizar_universidad(universidad, id)
     return jsonify("Universidad actualizada exitosamente"), 200 
 
 @universidad_bp.route('/universidad/<hashid:id>', methods=['DELETE'])
 def borrar_por_id(id):
     universidad = UniversidadService.eliminar_universidad(id)
-    return jsonify("Universidad borrada exitosamente"), 200 #200 significa que se borro exitosamente
+    return jsonify("Universidad borrada exitosamente"), 200 
 
 
 def sanitizar_universidad_entrada(request):
