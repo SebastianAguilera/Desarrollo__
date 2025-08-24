@@ -3,25 +3,24 @@ from app.repositories import CategoriaCargoRepository
 
 class CategoriaCargoService:
     @staticmethod
-    def crear_categoria_cargo(categoria_cargo: CategoriaCargo) -> CategoriaCargo:
-        return CategoriaCargoRepository.crear_categoria_cargo(categoria_cargo)
+    def crear(categoria_cargo: CategoriaCargo) -> CategoriaCargo:
+        return CategoriaCargoRepository.crear(categoria_cargo)
 
     @staticmethod
-    def buscar_categoria_cargo_por_id(id: int) -> CategoriaCargo | None:
-        return CategoriaCargoRepository.buscar_categoria_cargo_por_id(id)
+    def buscar_por_id(id: int) -> CategoriaCargo | None:
+        return CategoriaCargoRepository.buscar_por_id(id)
 
     @staticmethod
-    def listar_categorias_cargo() -> list[CategoriaCargo]:
-        return CategoriaCargoRepository.listar_categorias_cargo()
+    def buscar_todos() -> list[CategoriaCargo]:
+        return CategoriaCargoRepository.buscar_todos()
 
     @staticmethod
-    def actualizar_categoria_cargo(id: int, categoria_cargo: CategoriaCargo) -> CategoriaCargo | None:
-        categoria_existente = CategoriaCargoRepository.buscar_categoria_cargo_por_id(id)
+    def actualizar(id: int, categoria_cargo: CategoriaCargo) -> CategoriaCargo | None:
+        categoria_existente = CategoriaCargoRepository.buscar_por_id(id)
         if not categoria_existente:
             return None
         categoria_existente.nombre = categoria_cargo.nombre
-        categoria_actualizada = CategoriaCargoRepository.guardar_categoria_cargo(categoria_existente)
-        return categoria_actualizada
+        return CategoriaCargoRepository.guardar(categoria_existente)
 
     @staticmethod
     def borrar_por_id(id: int): 
