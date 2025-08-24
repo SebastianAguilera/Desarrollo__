@@ -1,26 +1,36 @@
 from flask import jsonify, Blueprint, request 
-from app.mapping.universidad_mapping import UniversidadMapping
+from app.mapping import UniversidadMapping
 from app.services.universidad_service import UniversidadService
 from markupsafe import escape
+import json
+import logging
+
 
 universidad_bp = Blueprint('universidad', __name__)
 
 universidad_mapping = UniversidadMapping()
 #from app.validators import validate_with
 
-#<hashid:id>
 
-@universidad_bp.route('/universidad/<hashid:id>', methods=['GET']) #Funciona
+@universidad_bp.route('/universidad/<hashid:id>', methods=['GET'])
 def buscar_por_id(id):
     universidad = UniversidadService.buscar_universidad(id)
     return universidad_mapping.dump(universidad), 200
 
 @universidad_bp.route('/universidad', methods=['GET'])
 def listar_universidades():
-    universidades = UniversidadService.listar_universidades()
+    page: int = request.headers.get('X-page', 1, type=int)
+    per_page: int = request.headers.get('X-per-page', 10, type=int) #devuelve registros por pagina
+    filters_str : str|None = request.headers.get('X-filters', None, type=str) #enviar algo a null, agujero negro
+    logging.info("page: {}, per_page: {}, filters: {}".format(page, per_page, filters_str))
+    if filters_str:
+        filters = json.loads(filters_str)
+        universidades = UniversidadService.listar_universidades(page=page, per_page=per_page, filters=filters)
+    else:
+        universidades = UniversidadService.listar_universidades(page=page, per_page=per_page)
     return universidad_mapping.dump(universidades, many=True), 200
 
-@universidad_bp.route('/universidad', methods=['POST']) #Funciona
+@universidad_bp.route('/universidad', methods=['POST']) 
 def crear():
     universidad = universidad_mapping.load(request.get_json())
     UniversidadService.crear_universidad(universidad)
