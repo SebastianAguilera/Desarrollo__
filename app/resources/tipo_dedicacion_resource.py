@@ -6,7 +6,7 @@ from markupsafe import escape
 tipo_dedicacion_bp = Blueprint('tipo_dedicacion', __name__)
 tipo_dedicacion_mapping = Tipo_dedicacionMapping()
 
-@tipo_dedicacion_bp.route('/tipo_dedicacion/<int:id>', methods=['GET']) 
+@tipo_dedicacion_bp.route('/tipo_dedicacion/<hashid:id>', methods=['GET']) 
 def buscar_por_id(id):
     tipo_dedicacion =TipoDedicacionService.buscar_por_id(id)
     return tipo_dedicacion_mapping.dump(tipo_dedicacion), 200
