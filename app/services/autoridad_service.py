@@ -14,6 +14,10 @@ class AutoridadService:
         return AutoridadRepository.buscar_por_id(id)
     
     @staticmethod
+    def buscar_todas():
+        return AutoridadRepository.buscar_todas()
+    
+    @staticmethod
     def actualizar_autoridad( id: int,autoridad: Autoridad):
         return AutoridadRepository.actualizar_autoridad(id,autoridad)
     

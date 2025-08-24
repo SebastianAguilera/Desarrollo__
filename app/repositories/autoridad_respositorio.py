@@ -16,6 +16,10 @@ class AutoridadRepository:
         return db.session.query(Autoridad).filter(Autoridad.id == id).one_or_none()
     
     @staticmethod
+    def buscar_todas():
+        return Autoridad.query.all()
+    
+    @staticmethod
     def actualizar_autoridad(id: int,autoridad: Autoridad) -> Autoridad:
         entity = AutoridadRepository.buscar_por_id(id)
         if entity is None:
