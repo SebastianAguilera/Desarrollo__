@@ -4,10 +4,12 @@ from app import create_app
 from app.models import Facultad, Universidad
 from app.services import FacultadService, UniversidadService
 from app import db
+import os
 
 class CartTestCase(unittest.TestCase):
 
     def setUp(self):
+        os.environ['FLASK_CONTEXT'] = 'testing'
         self.app = create_app()
         self.app_context = self.app.app_context()
         self.app_context.push()
