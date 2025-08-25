@@ -4,9 +4,7 @@ from app.services.facultad_service import FacultadService
 from markupsafe import escape
 facultad_bp = Blueprint('facultad', __name__)
 facultad_mapping = FacultadMapping()
-#from app.validators import validate_with
-
-#<hashid:id>
+from app.validators import validate_with
 
 @facultad_bp.route('/facultad/<hashid:id>', methods=['GET']) #Funciona
 def buscar_por_id(id):
@@ -18,23 +16,24 @@ def listar_facultades():
     facultades = FacultadService.listar_facultades()
     return facultad_mapping.dump(facultades, many=True), 200
 
-@facultad_bp.route('/facultad', methods=['POST']) #Funciona
+@facultad_bp.route('/facultad', methods=['POST']) 
+@validate_with(FacultadMapping)
 def crear():
     facultad = facultad_mapping.load(request.get_json())
     FacultadService.crear_facultad(facultad)
-    return jsonify("Facultad creada exitosamente"), 201 #201 significa creado exitosamente
+    return jsonify("Facultad creada exitosamente"), 201 
 
-@facultad_bp.route('/facultad/<hashid:id>', methods=['PUT']) #Funciona
-#@validate_with(FacultadMapping) #validar acciones con marshmallow, 
+@facultad_bp.route('/facultad/<hashid:id>', methods=['PUT']) 
+@validate_with(FacultadMapping)
 def actualizar(id):
-    facultad = facultad_mapping.load(request.get_json()) #cada vez que se llama al load sanitiza
+    facultad = facultad_mapping.load(request.get_json()) 
     FacultadService.actualizar_facultad( facultad, id)
     return jsonify("Facultad actualizada exitosamente"), 200 
 
 @facultad_bp.route('/facultad/<hashid:id>', methods=['DELETE'])
 def borrar_por_id(id):
     facultad = FacultadService.eliminar_Facultad(id)
-    return jsonify("Facultad borrada exitosamente"), 200 #200 significa que se borro exitosamente
+    return jsonify("Facultad borrada exitosamente"), 200 
 
 
 def sanitizar_facultad_entrada(request):
