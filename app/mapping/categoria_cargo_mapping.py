@@ -1,6 +1,5 @@
 from marshmallow import Schema, fields, post_load, validate 
 from app.models.categoria_cargo import CategoriaCargo
-from markupsafe import escape
 
 class CategoriaCargoMapping(Schema):
     hashids = fields.String(attribute="hashid", dump_only=True)

@@ -23,7 +23,8 @@ class PlanService:
     plan_existente.fechaInicio = plan.fechaInicio
     plan_existente.fechaFin = plan.fechaFin
     plan_existente.observacion = plan.observacion
-    return plan_existente
+
+    return PlanRepository.guardar(plan_existente)
   
   @staticmethod
   def borrar_por_id(id: int):
