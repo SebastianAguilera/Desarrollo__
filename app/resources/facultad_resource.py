@@ -23,7 +23,7 @@ def crear():
     FacultadService.crear_facultad(facultad)
     return jsonify("Facultad creada exitosamente"), 201 
 
-@facultad_bp.route('/facultad/<hashid:id>', methods=['PUT']) 
+@facultad_bp.route('/facultad/<int:id>', methods=['PUT']) 
 @validate_with(FacultadMapping)
 def actualizar(id):
     facultad = facultad_mapping.load(request.get_json()) 
