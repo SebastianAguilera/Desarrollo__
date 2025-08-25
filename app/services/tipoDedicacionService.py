@@ -14,6 +14,10 @@ class TipoDedicacionService:
         return TipoDedicacionRepository.buscar_por_id(id)
     
     @staticmethod
+    def buscar_todas():
+        return TipoDedicacionRepository.buscar_todas()
+    
+    @staticmethod
     def actualizar_tipo_dedicacion(id: int, tipo_dedicacion: TipoDedicacion):
         return TipoDedicacionRepository.actualizar_tipo_dedicacion(id, tipo_dedicacion)
     

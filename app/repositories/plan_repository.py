@@ -3,24 +3,23 @@ from app.models import Plan
 
 class PlanRepository:
   @staticmethod
-  def crear_plan(plan: Plan) -> Plan:
+  def crear(plan: Plan) -> Plan:
     db.session.add(plan)
     db.session.commit()
     return plan
 
   @staticmethod
-  def buscar_plan_por_id(id: int) -> Plan | None:
+  def buscar_por_id(id: int) -> Plan | None:
     return db.session.query(Plan).filter_by(id=id).one_or_none()
     
   @staticmethod
-  def listar_planes() -> list[Plan]:
+  def buscar_todos() -> list[Plan]:
     return db.session.query(Plan).all()
     
   @staticmethod
-  def guardar_plan(plan: Plan) -> Plan:
-    plan_existente = db.session.merge(plan)
+  def guardar(plan: Plan) -> Plan:
     db.session.commit()
-    return plan_existente
+    return plan
   
   @staticmethod
   def borrar_por_id(id: int):

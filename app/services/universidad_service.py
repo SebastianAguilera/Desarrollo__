@@ -1,5 +1,7 @@
 from app.models import Universidad
 from app.repositories import UniversidadRepository
+from typing import Optional
+import logging
 class UniversidadService:
 
   @staticmethod
@@ -7,8 +9,10 @@ class UniversidadService:
     UniversidadRepository.crear_universidad(universidad)
     return universidad
 
-  def listar_universidades():
-    universidades = UniversidadRepository.listar_universidades()
+  @staticmethod
+  def listar_universidades(page: int = 1, per_page: int = 10, filters: Optional[list] = None):
+    logging.info("page: {}, per_page: {}, filters: {}".format(page, per_page, filters))
+    universidades = UniversidadRepository.listar_universidades(page, per_page, filters)
     return universidades
 
   def buscar_universidad(id: int):

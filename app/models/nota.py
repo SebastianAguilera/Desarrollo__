@@ -15,3 +15,5 @@ class Nota(db.Model):
 
   #Relacion de nota con autoridad
   
+  autoridad_id = db.Column(db.Integer, db.ForeignKey('autoridades.id'))
+  autoridad = db.relationship("Autoridad", back_populates="notas")

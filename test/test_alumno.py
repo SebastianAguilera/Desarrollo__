@@ -1,14 +1,18 @@
 import unittest
 from flask import current_app
 from app import create_app
+from app.services import AlumnoService
+from app.services import UsuarioService
 from app.models import Alumno, Universidad, Especialidad, Facultad, Usuario
 from app.services import AlumnoService, UniversidadService, EspecialidadService, FacultadService, UsuarioService
 from app import db
+import os
 
 
 class CartTestCase(unittest.TestCase):
 
     def setUp(self):
+        os.environ['FLASK_CONTEXT'] = 'testing'
         self.app = create_app()
         self.app_context = self.app.app_context()
         self.app_context.push()
@@ -37,6 +41,8 @@ class CartTestCase(unittest.TestCase):
 
 
     def test_crear_alumno(self):
+
+        
         alumno= self.__crear_alumno()
         alumno_guardada = AlumnoService.crear_alumno(alumno)
         self.assertIsNotNone(alumno_guardada)
@@ -114,11 +120,12 @@ class CartTestCase(unittest.TestCase):
 
     def __crear_alumno (self):
         usuario = Usuario()
+
         usuario.nombredeusuario = "alguien"
         usuario.password = "alguien.123"
         usuario.actividad = True
         UsuarioService.guardar_usuario(usuario)
-
+        
         universidad = Universidad()
         universidad.nombre = "Universidad Tecnologica Nacional"
         universidad.sigla = "UTN"
@@ -156,6 +163,7 @@ class CartTestCase(unittest.TestCase):
         alumno.nroLegajo = 10066
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
+        alumno.usuario_id = usuario.id
         alumno.universidad_id = universidad.id
         alumno.especialidad_id = especialidad.id
         alumno.usuario_id = usuario.id

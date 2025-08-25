@@ -4,10 +4,12 @@ from app import create_app
 from app.models import Grupo
 from app.services import GrupoService
 from app import db
+import os
 
 class GrupoTestCase(unittest.TestCase):
 
     def setUp(self):
+        os.environ['FLASK_CONTEXT'] = 'testing'
         self.app = create_app()
         self.app_context = self.app.app_context()
         self.app_context.push()

@@ -13,6 +13,10 @@ class MateriaRepository:
         return db.session.query(Materia).filter(Materia.id == id).one_or_none()
     
     @staticmethod
+    def buscar_todas():
+        return Materia.query.all()
+    
+    @staticmethod
     def actualizar_materia(id: int,materia: Materia) -> Materia:
         entity = MateriaRepository.buscar_por_id(id)
         if entity is None:

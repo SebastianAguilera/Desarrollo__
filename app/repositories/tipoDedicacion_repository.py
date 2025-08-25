@@ -13,6 +13,10 @@ class TipoDedicacionRepository:
         return db.session.query(TipoDedicacion).filter(TipoDedicacion.id == id).one_or_none()
     
     @staticmethod
+    def buscar_todas():
+        return TipoDedicacion.query.all()
+    
+    @staticmethod
     def actualizar_tipo_dedicacion(id: int,tipo_dedicacion: TipoDedicacion) -> TipoDedicacion:
         entity = TipoDedicacionRepository.buscar_por_id(id)
         if entity is None:

@@ -28,7 +28,7 @@ class CargoTestCase(unittest.TestCase):
 
     def test_crear_cargo(self):
         cargo = self._nuevoCargo()
-        CargoService.crear_cargo(cargo)
+        CargoService.crear(cargo)
         self.assertIsNotNone(cargo)
         self.assertIsNotNone(cargo.id)
         self.assertGreaterEqual(cargo.id, 1)
@@ -37,55 +37,55 @@ class CargoTestCase(unittest.TestCase):
 
     def test_buscar_cargo(self):
         cargo = self._nuevoCargo()
-        CargoService.crear_cargo(cargo)
-        cargo_encontrado = CargoService.buscar_cargo_por_id(cargo.id)
+        CargoService.crear(cargo)
+        cargo_encontrado = CargoService.buscar_por_id(cargo.id)
         self.assertIsNotNone(cargo_encontrado)
         self.assertEqual(cargo_encontrado.nombre, 'Decano')
         self.assertEqual(cargo_encontrado.puntos, 2)
 
-    def test_listar_cargos(self):
+    def test_buscar_cargos(self):
         cargo1 = self._nuevoCargo()
         cargo2 = self._nuevoCargo()
         cargo2.nombre = 'Profesor'
         cargo2.puntos = 1
-        CargoService.crear_cargo(cargo1)
-        CargoService.crear_cargo(cargo2)
-        cargos = CargoService.listar_cargos()
+        CargoService.crear(cargo1)
+        CargoService.crear(cargo2)
+        cargos = CargoService.buscar_todos()
         self.assertEqual(len(cargos), 2)
         self.assertIn(cargo1, cargos)
         self.assertIn(cargo2, cargos)
 
     def test_actualizar_cargo(self):
         cargo = self._nuevoCargo()
-        CargoService.crear_cargo(cargo)
+        CargoService.crear(cargo)
         cargo.nombre = 'Decano Actualizado'
         cargo.puntos = 3
-        cargo_actualizado = CargoService.actualizar_cargo(cargo.id, cargo)
+        cargo_actualizado = CargoService.actualizar(cargo.id, cargo)
         self.assertIsNotNone(cargo_actualizado)
         self.assertEqual(cargo_actualizado.nombre, 'Decano Actualizado')
         self.assertEqual(cargo_actualizado.puntos, 3)
 
     def test_borrar_cargo(self):
         cargo = self._nuevoCargo()
-        CargoService.crear_cargo(cargo)
+        CargoService.crear(cargo)
         cargo_borrado = CargoService.borrar_por_id(cargo.id)
         self.assertIsNotNone(cargo_borrado)
         self.assertEqual(cargo_borrado.nombre, 'Decano')
         self.assertEqual(cargo_borrado.puntos, 2)
-        cargo_buscado = CargoService.buscar_cargo_por_id(cargo.id)
+        cargo_buscado = CargoService.buscar_por_id(cargo.id)
         self.assertIsNone(cargo_buscado)
 
     def test_cargo_tiene_categoria(self):
         cargo = self._nuevoCargo()
-        CargoService.crear_cargo(cargo)
+        CargoService.crear(cargo)
 
-        cargo_guardada = CargoService.buscar_cargo_por_id(cargo.id)
+        cargo_guardada = CargoService.buscar_por_id(cargo.id)
         self.assertIsNotNone(cargo_guardada.categoria)
         self.assertEqual(cargo_guardada.categoria.nombre, 'Administrativo')
 
     def _nuevoCargo(self):
         categoria = CategoriaCargo(nombre='Administrativo')
-        CategoriaCargoService.crear_categoria_cargo(categoria)
+        CategoriaCargoService.crear(categoria)
 
         cargo = Cargo()
         cargo.nombre = 'Decano'
