@@ -77,3 +77,11 @@ Body (JSON):
 - Obtener universidad por Hashid:
 
 GET http://localhost:5000/api/v1/universidad/Y10NDOQA72bnPwqK
+
+Grupo:
+Aguilera Sebastián
+Aguilera Rocio
+Gualpa Agostina
+González Luciana
+Perez Jazmín
+Choquevillca Celeste
