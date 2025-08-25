@@ -30,7 +30,7 @@ class PlanTestCase(unittest.TestCase):
 
     def test_crear_plan(self):
         plan = self.__nuevoPlan()
-        PlanService.crear_plan(plan)
+        PlanService.crear(plan)
         self.assertIsNotNone(plan)
         self.assertIsNotNone(plan.id)
         self.assertGreaterEqual(plan.id, 1)
@@ -38,41 +38,40 @@ class PlanTestCase(unittest.TestCase):
     
     def test_plan_busqueda(self):
         plan = self.__nuevoPlan()
-        PlanService.crear_plan(plan)
-        plan_buscado = PlanService.buscar_plan_por_id(plan.id)
+        PlanService.crear(plan)
+        plan_buscado = PlanService.buscar_por_id(plan.id)
         self.assertIsNotNone(plan_buscado)
         self.assertEqual(plan_buscado.nombre, 'Sistemas')
         self.assertEqual(plan_buscado.fechaInicio, '12 de noviembre 2024')
         self.assertEqual(plan_buscado.fechaFin, '12 de diciembre 2024')
     
-    def test_listar_planes(self):
+    def test_buscar_planes(self):
         plan1 = self.__nuevoPlan()
         plan2 = self.__nuevoPlan()
         plan2.nombre = 'Redes'
-        PlanService.crear_plan(plan1)
-        PlanService.crear_plan(plan2)
-        planes = PlanService.listar_planes()
+        PlanService.crear(plan1)
+        PlanService.crear(plan2)
+        planes = PlanService.buscar_todos()
         self.assertEqual(len(planes), 2)
         self.assertIn(plan1, planes)
         self.assertIn(plan2, planes)
 
     def test_actualizar_plan(self):
         plan = self.__nuevoPlan()
-        PlanService.crear_plan(plan)
+        PlanService.crear(plan)
         plan.nombre = 'Sistemas Avanzados'
-        plan_actualizado = PlanService.actualizar_plan(plan.id, plan)
+        plan_actualizado = PlanService.actualizar(plan.id, plan)
         self.assertIsNotNone(plan_actualizado)
         self.assertEqual(plan_actualizado.nombre, 'Sistemas Avanzados') 
 
     def test_borrar_plan(self): 
         plan = self.__nuevoPlan()
-        PlanService.crear_plan(plan)
+        PlanService.crear(plan)
         plan_borrado = PlanService.borrar_por_id(plan.id)
         self.assertIsNotNone(plan_borrado)
         self.assertEqual(plan_borrado.nombre, 'Sistemas')
-        plan_buscado = PlanService.buscar_plan_por_id(plan.id)
+        plan_buscado = PlanService.buscar_por_id(plan.id)
         self.assertIsNone(plan_buscado)
-
 
     def __nuevoPlan(self):
         plan = Plan()
