@@ -3,7 +3,7 @@ from app.models.autoridad import Autoridad
 from markupsafe import escape
 
 class AutoridadMapping(Schema):
-    id = fields.Integer(dump_only=True) 
+    hashids = fields.String(attribute="hashid", dump_only=True)
     nombre = fields.String(required=True, validate = validate.Length(min=1, max=100))
     cargo = fields.String(required=True, validate = validate.Length(min=1, max=50))
     telefono = fields.String(required=True, validate = validate.Length(min=7, max=20))

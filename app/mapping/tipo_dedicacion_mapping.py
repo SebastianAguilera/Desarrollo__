@@ -3,7 +3,7 @@ from app.models.tipoDedicacion import TipoDedicacion
 from markupsafe import escape
 
 class Tipo_dedicacionMapping(Schema):
-    id = fields.Integer(dump_only=True) 
+    hashids = fields.String(attribute='hashid', dump_only=True) 
     nombre = fields.String(required=True, validate = validate.Length(min=1, max=100))
     observacion = fields.String(required=True, validate = validate.Length(min=1, max=100))
     

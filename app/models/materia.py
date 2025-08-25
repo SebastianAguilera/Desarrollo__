@@ -1,9 +1,10 @@
+from flask_hashids import HashidMixin
 from dataclasses import dataclass
 from app import db
 
 @dataclass(init=False, repr=True, eq=True)
 
-class Materia(db.Model):
+class Materia(HashidMixin,db.Model):
     __tablename__ = "materias"
     
     id: int = db.Column(db.Integer, primary_key = True, autoincrement = True)
