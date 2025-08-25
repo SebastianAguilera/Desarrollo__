@@ -2,8 +2,8 @@ import unittest
 import os
 from app import db
 from app import create_app
-from app.models import Nota, Alumno, Universidad, Especialidad, Usuario, Materia
-from app.services import AlumnoService, NotaService, UniversidadService, EspecialidadService,  UsuarioService, MateriaService
+from app.models import Nota, Alumno, Universidad, Especialidad, Usuario, Materia, Autoridad
+from app.services import AlumnoService, NotaService, UniversidadService, EspecialidadService,  UsuarioService, MateriaService, AutoridadService
 
 
 class NotaTestCase(unittest.TestCase):
@@ -51,6 +51,15 @@ class NotaTestCase(unittest.TestCase):
         self.assertEqual(nota_encontrada.materia_id, 1)
         self.assertEqual(nota_encontrada.autoridad_id, 1)
         self.assertEqual(nota_encontrada.nota, 10)
+        
+    def test_relacion_nota_autoridad(self):
+        nota = self.__crear_nota()
+        nota_guardada = NotaService.guardar_nota(nota)
+        autoridad_recargada = AutoridadService.buscar_por_id(nota_guardada.autoridad_id)
+
+        self.assertEqual(nota_guardada.autoridad_id, autoridad_recargada.id)
+        self.assertEqual(nota_guardada.autoridad.nombre, autoridad_recargada.nombre)
+        self.assertIn(nota_guardada, autoridad_recargada.notas)
 
     def __crear_nota(self):
         materia = Materia(
@@ -64,12 +73,16 @@ class NotaTestCase(unittest.TestCase):
 
         alumno = self.__crear_alumno()
         alumno_guardado = AlumnoService.crear_alumno(alumno)
+        
+        autoridad = self.__crear_autoridad()
+        
         nota = Nota()
         nota.alumno_id = alumno_guardado.id
         nota.materia_id = materia.id
-        nota.autoridad_id = 1
+        nota.autoridad_id = autoridad.id
         nota.nota = 10
         return nota
+    
 
     def __crear_alumno (self):
         universidad = Universidad()
@@ -107,7 +120,15 @@ class NotaTestCase(unittest.TestCase):
         alumno.usuario_id = usuario.id
         return alumno
 
-
+    def __crear_autoridad(self):
+        autoridad = Autoridad(
+            nombre="Profe test",
+            cargo="Titular",
+            telefono="123456789",
+            email="profetest@test.com"
+        )
+        AutoridadService.crear_autoridad(autoridad)
+        return autoridad
 
 
 if __name__ == '__main__':

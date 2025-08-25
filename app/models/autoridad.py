@@ -12,3 +12,4 @@ class Autoridad(db.Model):
     email: str = db.Column(db.String(100), nullable=False)
 
   #muchas autoridades tienen un cargo
+    notas = db.relationship("Nota", back_populates="autoridad")
