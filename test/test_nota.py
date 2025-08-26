@@ -1,4 +1,3 @@
-# test/test_nota.py
 import os
 import unittest
 from app import create_app, db
