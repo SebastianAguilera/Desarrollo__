@@ -25,7 +25,7 @@ class GrupoRepository:
         return entity
     
     @staticmethod
-    def eliminar_grupo(id: int) -> None:
+    def eliminar_grupo(id: int):
         entity = GrupoRepository.buscar_grupo_por_id(id)
         db.session.delete(entity)
         db.session.commit()

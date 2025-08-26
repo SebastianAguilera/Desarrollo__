@@ -40,7 +40,7 @@ class GrupoTestCase(unittest.TestCase):
         grupo = self.__crear_grupo()
         GrupoService.crear_grupo(grupo)
 
-        grupo_encontrado = GrupoService.buscar_grupo(1)
+        grupo_encontrado = GrupoService.buscar_grupo_por_id(1)
         self.assertIsNotNone(grupo)
         self.assertIsNotNone(grupo.id)
         self.assertGreaterEqual(grupo.id, 1)
@@ -52,27 +52,23 @@ class GrupoTestCase(unittest.TestCase):
         nuevosdatosgrupo = Grupo()
         nuevosdatosgrupo.nombre = 'Nombre grupo'
         grupomodeficado = GrupoService.actualizar_grupo(nuevosdatosgrupo, grupo.id)
-        grupoencontrado = GrupoService.buscar_grupo(grupo.id)
+        grupoencontrado = GrupoService.buscar_grupo_por_id(grupo.id)
         self.assertIsNotNone(grupoencontrado)
         self.assertIsNotNone(grupoencontrado.id)
         self.assertGreaterEqual(grupoencontrado.id, 1)
         self.assertEqual(grupoencontrado.nombre, grupomodeficado.nombre)
 
-
     def test_eliminar_grupo(self):
         grupo = self.__crear_grupo()
         GrupoService.crear_grupo(grupo)
         GrupoService.eliminar_grupo(grupo.id)
-        grupo_encontado = GrupoService.buscar_grupo(grupo.id)
-        self.assertIsNotNone(grupo_encontado)
-
-
+        grupo_encontrado = GrupoService.buscar_grupo_por_id(grupo.id)
+        self.assertIsNone(grupo_encontrado)
 
     def __crear_grupo(self):
         grupo = Grupo()
         grupo.nombre = 'Nombre del grupo'
         return grupo
 
-        
 if __name__ == '__main__':
     unittest.main()
