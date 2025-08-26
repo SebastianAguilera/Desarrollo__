@@ -14,6 +14,10 @@ class GradoRepository:
     return db.session.query(Grado).filter(Grado.id == id).one_or_none()
   
   @staticmethod
+  def listar_grados() -> list[Grado]:
+    return db.session.query(Grado).all()
+
+  @staticmethod
   def actualizar_grado(grado: Grado, id: int) -> Grado:
     entity = GradoRepository.buscar_grado(id)
     entity.nombre = grado.nombre

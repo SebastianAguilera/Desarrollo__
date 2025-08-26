@@ -2,6 +2,7 @@ from flask import jsonify, Blueprint, request
 from app.mapping.grado_mapping import GradoMapping
 from app.services.grado_service import GradoService
 from markupsafe import escape
+from app.validators import validate_with
 
 grado_bp = Blueprint('grado', __name__)
 
@@ -18,12 +19,14 @@ def listar_grados():
     return grado_mapping.dump(grados, many=True), 200
 
 @grado_bp.route('/grado', methods=['POST'])
+@validate_with(GradoMapping)
 def crear():
     grado = grado_mapping.load(request.get_json())
     GradoService.crear_grado(grado)
     return jsonify("Grado creado exitosamente"), 201
 
 @grado_bp.route('/grado/<hashid:id>', methods=['PUT'])
+@validate_with(GradoMapping)
 def actualizar(id):
     grado = grado_mapping.load(request.get_json())
     GradoService.actualizar_grado(grado, id)
