@@ -17,10 +17,6 @@ class GrupoService:
         return grupo
 
     def eliminar_grupo(id: int):
-        grupo: GrupoRepository.eliminar_grupo(id)
-    
-
-
-
+        return GrupoRepository.eliminar_grupo(id)
 
 
