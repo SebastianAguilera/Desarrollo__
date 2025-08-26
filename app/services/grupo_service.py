@@ -8,19 +8,22 @@ class GrupoService:
         GrupoRepository.crear_grupo(grupo)
         return grupo
 
-    def buscar_grupo(id: int):
-        grupo = GrupoRepository.buscar_grupo(id)
+    @staticmethod
+    def buscar_grupos_todos() -> list[Grupo]:
+        return GrupoRepository.buscar_todos()
+
+    @staticmethod
+    def buscar_grupo_por_id(id: int):
+        grupo = GrupoRepository.buscar_grupo_por_id(id)
         return grupo
 
+    @staticmethod
     def actualizar_grupo(grupo: Grupo, id: int):
         GrupoRepository.actualizar_grupo(grupo, id)
         return grupo
 
+    @staticmethod
     def eliminar_grupo(id: int):
-        grupo: GrupoRepository.eliminar_grupo(id)
-    
-
-
-
+        return GrupoRepository.eliminar_grupo(id)
 
 

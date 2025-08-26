@@ -21,7 +21,7 @@ class PlanTestCase(unittest.TestCase):
         self.app_context.pop()
 
     def test_plan_creation(self):
-        plan = self.__nuevoPlan()
+        plan = self.__nuevo_plan()
         self.assertIsNotNone(plan)
         self.assertEqual(plan.nombre, 'Sistemas')
         self.assertEqual(plan.fechaInicio, '12 de noviembre 2024')
@@ -29,7 +29,7 @@ class PlanTestCase(unittest.TestCase):
         self.assertEqual(plan.observacion, 'Se dicta solo un mes')
 
     def test_crear_plan(self):
-        plan = self.__nuevoPlan()
+        plan = self.__nuevo_plan()
         PlanService.crear(plan)
         self.assertIsNotNone(plan)
         self.assertIsNotNone(plan.id)
@@ -37,7 +37,7 @@ class PlanTestCase(unittest.TestCase):
         self.assertEqual(plan.nombre, 'Sistemas')
     
     def test_plan_busqueda(self):
-        plan = self.__nuevoPlan()
+        plan = self.__nuevo_plan()
         PlanService.crear(plan)
         plan_buscado = PlanService.buscar_por_id(plan.id)
         self.assertIsNotNone(plan_buscado)
@@ -46,8 +46,8 @@ class PlanTestCase(unittest.TestCase):
         self.assertEqual(plan_buscado.fechaFin, '12 de diciembre 2024')
     
     def test_buscar_planes(self):
-        plan1 = self.__nuevoPlan()
-        plan2 = self.__nuevoPlan()
+        plan1 = self.__nuevo_plan()
+        plan2 = self.__nuevo_plan()
         plan2.nombre = 'Redes'
         PlanService.crear(plan1)
         PlanService.crear(plan2)
@@ -57,7 +57,7 @@ class PlanTestCase(unittest.TestCase):
         self.assertIn(plan2, planes)
 
     def test_actualizar_plan(self):
-        plan = self.__nuevoPlan()
+        plan = self.__nuevo_plan()
         PlanService.crear(plan)
         plan.nombre = 'Sistemas Avanzados'
         plan_actualizado = PlanService.actualizar(plan.id, plan)
@@ -65,7 +65,7 @@ class PlanTestCase(unittest.TestCase):
         self.assertEqual(plan_actualizado.nombre, 'Sistemas Avanzados') 
 
     def test_borrar_plan(self): 
-        plan = self.__nuevoPlan()
+        plan = self.__nuevo_plan()
         PlanService.crear(plan)
         plan_borrado = PlanService.borrar_por_id(plan.id)
         self.assertIsNotNone(plan_borrado)
@@ -73,7 +73,7 @@ class PlanTestCase(unittest.TestCase):
         plan_buscado = PlanService.buscar_por_id(plan.id)
         self.assertIsNone(plan_buscado)
 
-    def __nuevoPlan(self):
+    def __nuevo_plan(self):
         plan = Plan()
         plan.nombre = 'Sistemas'
         plan.fechaInicio = '12 de noviembre 2024'

@@ -19,7 +19,15 @@ class AutoridadService:
     
     @staticmethod
     def actualizar_autoridad( id: int,autoridad: Autoridad):
-        return AutoridadRepository.actualizar_autoridad(id,autoridad)
+        autoridad_existente = AutoridadRepository.buscar_por_id(id)
+        if not autoridad_existente:
+            return None
+        autoridad_existente.nombre = autoridad.nombre
+        autoridad_existente.telefono = autoridad.telefono
+        autoridad_existente.email = autoridad.email
+        autoridad_existente.cargo_id = autoridad.cargo_id
+        
+        return AutoridadRepository.guardar_autoridad(id, autoridad_existente)
     
     @staticmethod
     def borrar_autoridad(id: int):

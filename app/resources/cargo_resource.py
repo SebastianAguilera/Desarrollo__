@@ -31,10 +31,3 @@ def actualizar(id):
     if actualizado is None:
         return jsonify("Cargo no encontrado"), 404
     return jsonify("Cargo actualizado exitosamente"), 200
-
-@cargo_bp.route('/cargo/<hashid:id>', methods=['DELETE'])
-def borrar_por_id(id):
-    cargo = CargoService.borrar_por_id(id)
-    if cargo is None:
-        return jsonify("Cargo no encontrado"), 404
-    return jsonify("Cargo borrado exitosamente"), 200

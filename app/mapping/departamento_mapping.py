@@ -3,7 +3,7 @@ from app.models.departamento import Departamento
 from markupsafe import escape
 
 class DepartamentoMapping(Schema):
-    id = fields.Integer()
+    hashids = fields.String(attribute="hashid", dump_only=True)
     nombre = fields.String(required=True, validate = validate.Length(min=1, max=100))
     
     @post_load

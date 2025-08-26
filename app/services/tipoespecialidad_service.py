@@ -18,5 +18,6 @@ class TipoespecialidadService:
     
     def eliminar_tipoespecialidad(id: int):
         tipoespecialidad = TipoEspecialidadRepository.eliminar_tipoespecialidad(id)
+    
 
         

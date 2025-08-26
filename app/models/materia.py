@@ -20,3 +20,4 @@ class Materia(HashidMixin,db.Model):
     
     notas = db.relationship("Nota", back_populates="materia", cascade="all, delete-orphan")
     
+    planes = db.relationship("PlanMateria", back_populates="materia", cascade="all, delete-orphan", lazy="select")

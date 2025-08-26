@@ -18,3 +18,4 @@ from .nota import Nota
 from .categoria_cargo import CategoriaCargo
 from .tipoDedicacion import TipoDedicacion
 from .tipoDocumento import TipoDocumento
+from .plan_materia import PlanMateria

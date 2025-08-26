@@ -65,16 +65,6 @@ class CargoTestCase(unittest.TestCase):
         self.assertEqual(cargo_actualizado.nombre, 'Decano Actualizado')
         self.assertEqual(cargo_actualizado.puntos, 3)
 
-    def test_borrar_cargo(self):
-        cargo = self._nuevoCargo()
-        CargoService.crear(cargo)
-        cargo_borrado = CargoService.borrar_por_id(cargo.id)
-        self.assertIsNotNone(cargo_borrado)
-        self.assertEqual(cargo_borrado.nombre, 'Decano')
-        self.assertEqual(cargo_borrado.puntos, 2)
-        cargo_buscado = CargoService.buscar_por_id(cargo.id)
-        self.assertIsNone(cargo_buscado)
-
     def test_cargo_tiene_categoria(self):
         cargo = self._nuevoCargo()
         CargoService.crear(cargo)

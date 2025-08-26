@@ -11,6 +11,10 @@ class FacultadRepository:
     return facultad
   
   @staticmethod
+  def listar_facultades() -> list[Facultad]:
+    return db.session.query(Facultad).all()
+  
+  @staticmethod
   def buscar_facultad(id: int) -> Facultad:
     return db.session.query(Facultad).filter(Facultad.id == id).one_or_none()
   

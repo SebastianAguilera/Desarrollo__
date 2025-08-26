@@ -7,16 +7,23 @@ class GradoService:
     GradoRepository.crear_grado(grado)
     return grado
 
+  @staticmethod
   def buscar_grado(id: int):
     grado = GradoRepository.buscar_grado(id)
     return grado
-    
+
+  @staticmethod
+  def listar_grados() -> list[Grado]:
+    return GradoRepository.listar_grados()
+
+  @staticmethod
   def actualizar_grado(grado: Grado, id: int):
     GradoRepository.actualizar_grado(grado, id)
     return grado
   
+  @staticmethod
   def eliminar_grado(id: int):
-    grado = GradoRepository.eliminar_grado(id)
+    return GradoRepository.eliminar_grado(id)
     
     
     

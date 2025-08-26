@@ -6,6 +6,11 @@ class FacultadService:
   def crear_facultad(facultad: Facultad):
     FacultadRepository.crear_facultad(facultad)
     return facultad
+  
+  @staticmethod
+  def listar_facultades():
+    facultades= FacultadRepository.listar_facultades()
+    return facultades
 
   def buscar_facultad(id: int):
     facultad = FacultadRepository.buscar_facultad(id)

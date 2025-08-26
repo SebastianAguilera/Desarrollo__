@@ -2,7 +2,8 @@ from flask import jsonify, Blueprint, request
 from app.mapping.orientacion_mapping import OrientacionMapping
 from app.services.orientacion_service import OrientacionService
 from markupsafe import escape
-#importar en init resources
+from app.validators import validate_with
+
 orientacion_bp = Blueprint('orientacion', __name__)
 
 orientacion_mapping = OrientacionMapping()
@@ -18,12 +19,14 @@ def listar_orientaciones():
     return orientacion_mapping.dump(orientaciones, many=True), 200
 
 @orientacion_bp.route('/orientacion', methods=['POST'])
+@validate_with(OrientacionMapping)
 def crear():
     orientacion = orientacion_mapping.load(request.get_json())
     OrientacionService.crear_orientacion(orientacion)
     return jsonify("Orientación creada exitosamente"), 201
 
 @orientacion_bp.route('/orientacion/<hashid:id>', methods=['PUT'])
+@validate_with(OrientacionMapping)
 def actualizar(id):
     orientacion = orientacion_mapping.load(request.get_json())
     OrientacionService.actualizar_orientacion(orientacion, id)
@@ -34,7 +37,3 @@ def borrar_por_id(id):
     OrientacionService.eliminar_orientacion(id)
     return jsonify("Orientación borrada exitosamente"), 200
 
-def sanitizar_orientacion_entrada(request):
-    orientacion = orientacion_mapping.load(request.get_json())
-    orientacion.nombre = escape(orientacion.nombre)
-    return orientacion

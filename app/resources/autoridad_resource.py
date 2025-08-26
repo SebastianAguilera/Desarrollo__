@@ -37,7 +37,6 @@ def borrar_por_id(id):
 def sanitizar_autoridad_entrada(request):
     autoridad = autoridad_mapping.load(request.get_json())
     autoridad.nombre = escape(autoridad.nombre)
-    autoridad.cargo = escape(autoridad.cargo)
     autoridad.telefono = escape(autoridad.telefono)
     autoridad.email = escape(autoridad.email) 
     return autoridad

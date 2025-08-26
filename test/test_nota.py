@@ -1,10 +1,11 @@
-import unittest
 import os
-from app import db
-from app import create_app
-from app.models import Nota, Alumno, Universidad, Especialidad, Usuario, Materia, Autoridad
-from app.services import AlumnoService, NotaService, UniversidadService, EspecialidadService,  UsuarioService, MateriaService, AutoridadService
-
+import unittest
+from app import create_app, db
+from app.models import Nota, Materia, Alumno, Autoridad, Cargo, CategoriaCargo, Universidad, Especialidad, Usuario
+from app.services import ( NotaService, MateriaService, AlumnoService, 
+    UniversidadService, EspecialidadService, UsuarioService,
+    AutoridadService, CargoService, CategoriaCargoService
+)
 
 class NotaTestCase(unittest.TestCase):
 
@@ -31,6 +32,7 @@ class NotaTestCase(unittest.TestCase):
         nota = self.__crear_nota()
         nota_guardada = NotaService.guardar_nota(nota)
         alumno = AlumnoService.buscar_alumno(1)
+
         self.assertIsNotNone(nota_guardada)
         self.assertIsNotNone(nota_guardada.id)
         self.assertGreaterEqual(nota_guardada.id, 1)
@@ -42,8 +44,10 @@ class NotaTestCase(unittest.TestCase):
     def test_buscar_nota(self):
         nota = self.__crear_nota()
         alumno = AlumnoService.buscar_alumno(1)
-        nota_guardada = NotaService.guardar_nota(nota)
+        NotaService.guardar_nota(nota)
+
         nota_encontrada = NotaService.buscar_nota(alumno.id)
+
         self.assertIsNotNone(nota_encontrada)
         self.assertIsNotNone(nota_encontrada.id)
         self.assertGreaterEqual(nota_encontrada.id, 1)
@@ -51,7 +55,7 @@ class NotaTestCase(unittest.TestCase):
         self.assertEqual(nota_encontrada.materia_id, 1)
         self.assertEqual(nota_encontrada.autoridad_id, 1)
         self.assertEqual(nota_encontrada.nota, 10)
-        
+
     def test_relacion_nota_autoridad(self):
         nota = self.__crear_nota()
         nota_guardada = NotaService.guardar_nota(nota)
@@ -63,34 +67,33 @@ class NotaTestCase(unittest.TestCase):
 
     def __crear_nota(self):
         materia = Materia(
-            nombre= 'Algebra y geometria',
-            diseno_curricular = 'diseno curricular',
-            horas_dictadas = '36',
-            promocional = True,
-            nivel = '1',
+            nombre='Algebra y geometria',
+            diseno_curricular='diseno curricular',
+            horas_dictadas='36',
+            promocional=True,
+            nivel='1',
         )
-        MateriaService.crear_materia(materia) 
+        MateriaService.crear_materia(materia)  
 
         alumno = self.__crear_alumno()
-        alumno_guardado = AlumnoService.crear_alumno(alumno)
-        
-        autoridad = self.__crear_autoridad()
-        
+        alumno_guardado = AlumnoService.crear_alumno(alumno)  
+
+        autoridad = self.__crear_autoridad()  
+
         nota = Nota()
         nota.alumno_id = alumno_guardado.id
-        nota.materia_id = materia.id
+        note_materia_id = materia.id
+        nota.materia_id = note_materia_id
         nota.autoridad_id = autoridad.id
         nota.nota = 10
         return nota
-    
 
-    def __crear_alumno (self):
+    def __crear_alumno(self):
         universidad = Universidad()
         universidad.nombre = "Universidad Tecnologica Nacional"
         universidad.sigla = "UTN"
         universidad.tipo = "publica"
         UniversidadService.crear_universidad(universidad)
-  
 
         especialidad = Especialidad()
         especialidad.nombre = "Ingenieria en Sistemas"
@@ -103,8 +106,7 @@ class NotaTestCase(unittest.TestCase):
         usuario.password = "alguien.123"
         usuario.actividad = True
         UsuarioService.guardar_usuario(usuario)
-        
-        
+
         alumno = Alumno()
         alumno.nombre = "Agostina"
         alumno.apellido = "Gualpa"
@@ -116,21 +118,26 @@ class NotaTestCase(unittest.TestCase):
         alumno.fechaIngreso = "2020-01-01"
         alumno.carrera = "Ingenieria en Sistemas"
         alumno.universidad_id = universidad.id
-        alumno.especialidad_id = especialidad.id  
+        alumno.especialidad_id = especialidad.id
         alumno.usuario_id = usuario.id
         return alumno
 
     def __crear_autoridad(self):
+        categoria = CategoriaCargo(nombre="Docente Universitario")
+        CategoriaCargoService.crear(categoria)  
+
+        cargo = Cargo(nombre="Titular", puntos=10, categoria_cargo_id=categoria.id)
+        CargoService.crear(cargo)  
+
         autoridad = Autoridad(
             nombre="Profe test",
-            cargo="Titular",
             telefono="123456789",
-            email="profetest@test.com"
+            email="profetest@test.com",
+            cargo_id=cargo.id
         )
-        AutoridadService.crear_autoridad(autoridad)
+        AutoridadService.crear_autoridad(autoridad) 
         return autoridad
 
 
 if __name__ == '__main__':
     unittest.main()
-

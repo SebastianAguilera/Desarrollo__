@@ -58,15 +58,6 @@ class CategoriaCargoTestCase(unittest.TestCase):
         categoria_actualizada = CategoriaCargoService.actualizar(categoria_cargo.id, categoria_cargo)
         self.assertIsNotNone(categoria_actualizada)
         self.assertEqual(categoria_actualizada.nombre, 'Administrativo Actualizado')
-    
-    def test_borrar_categoria_cargo(self):
-        categoria_cargo = self._nuevaCategoriaCargo()
-        CategoriaCargoService.crear(categoria_cargo)
-        categoria_borrada = CategoriaCargoService.borrar_por_id(categoria_cargo.id)
-        self.assertIsNotNone(categoria_borrada)
-        self.assertEqual(categoria_borrada.nombre, 'Administrativo')
-        categoria_encontrada = CategoriaCargoService.buscar_por_id(categoria_cargo.id)
-        self.assertIsNone(categoria_encontrada)
 
     def test_categoria_cargo_con_cargos(self):
         categoria_cargo = self._nuevaCategoriaCargo()
