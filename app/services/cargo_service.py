@@ -25,8 +25,3 @@ class CargoService:
         cargo_existente.categoria_cargo_id = cargo.categoria_cargo_id
     
         return CargoRepository.guardar(cargo_existente)
-    
-    @staticmethod
-    def borrar_por_id(id: int) -> Cargo | None:
-        return CargoRepository.borrar_por_id(id)
-    

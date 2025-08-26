@@ -21,12 +21,3 @@ class CategoriaCargoRepository:
   def guardar(categoria_cargo: CategoriaCargo) -> CategoriaCargo:
     db.session.commit()
     return categoria_cargo
-
-  @staticmethod
-  def borrar_por_id(id: int):
-    categoria = db.session.query(CategoriaCargo).filter_by(id=id).first()
-    if not categoria:
-      return None
-    db.session.delete(categoria)
-    db.session.commit()
-    return categoria

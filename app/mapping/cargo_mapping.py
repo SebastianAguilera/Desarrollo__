@@ -7,6 +7,7 @@ class CargoMapping(Schema):
     puntos = fields.Integer(required=True, validate=validate.Range(min=0))
     categoria_cargo_id = fields.Integer(required=True, load_only=True) 
     categoria = fields.Nested('CategoriaCargoMapping', only=('hashids', 'nombre'), dump_only=True)
+    autoridades = fields.List(fields.Nested('AutoridadMapping', only=('hashids', 'nombre')), dump_only=True)
 
     @post_load
     def nuevo_cargo(self, data, **kwargs):

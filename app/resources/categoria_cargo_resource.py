@@ -32,9 +32,3 @@ def actualizar(id):
         return jsonify("Categoría no encontrada"), 404
     return jsonify("Categoría actualizada exitosamente"), 200
 
-@categoria_cargo_bp.route('/categoria_cargo/<hashid:id>', methods=['DELETE'])
-def borrar_por_id(id):
-    categoria = CategoriaCargoService.borrar_por_id(id)
-    if categoria is None:
-        return jsonify("Categoría no encontrada"), 404
-    return jsonify("Categoría borrada exitosamente"), 200

@@ -20,16 +20,9 @@ class AutoridadRepository:
         return Autoridad.query.all()
     
     @staticmethod
-    def actualizar_autoridad(id: int,autoridad: Autoridad) -> Autoridad:
-        entity = AutoridadRepository.buscar_por_id(id)
-        if entity is None:
-            return None 
-        entity.nombre = autoridad.nombre
-        entity.cargo = autoridad.cargo
-        entity.email = autoridad.email
-        entity.telefono = autoridad.telefono
+    def guardar_autoridad(id: int,autoridad: Autoridad) -> Autoridad:
         db.session.commit()
-        return entity
+        return autoridad
     
     @staticmethod
     def borrar_autoridad(id: int) -> None:

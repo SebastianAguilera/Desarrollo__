@@ -21,7 +21,3 @@ class CategoriaCargoService:
             return None
         categoria_existente.nombre = categoria_cargo.nombre
         return CategoriaCargoRepository.guardar(categoria_existente)
-
-    @staticmethod
-    def borrar_por_id(id: int): 
-        return CategoriaCargoRepository.borrar_por_id(id)

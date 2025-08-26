@@ -20,12 +20,3 @@ class CargoRepository:
   def guardar(cargo: Cargo) -> Cargo:
     db.session.commit()
     return cargo
-
-  @staticmethod
-  def borrar_por_id(id: int):
-    cargo = db.session.query(Cargo).filter_by(id=id).first()
-    if not cargo:
-      return None
-    db.session.delete(cargo)
-    db.session.commit()
-    return cargo

@@ -1,90 +1,117 @@
 import unittest
+import os
 from flask import current_app
 from app import create_app, db
-from app.models import Autoridad
-from app.services import AutoridadService
-import os
+from app.models import Autoridad, Cargo, CategoriaCargo
+from app.services import AutoridadService, CargoService, CategoriaCargoService
 
-class CartTestCase(unittest.TestCase):
+class AutoridadTestCase(unittest.TestCase):
 
     def setUp(self):
         os.environ['FLASK_CONTEXT'] = 'testing'
         self.app = create_app()
         self.app_context = self.app.app_context()
         self.app_context.push()
-        db.create_all()  #crea tablas
+        db.create_all()
+        self.categoria = CategoriaCargo(nombre="Administrativo")
+        CategoriaCargoService.crear(self.categoria)
+
+        self.cargo = Cargo(nombre="Decano", puntos=2, categoria_cargo_id=self.categoria.id)
+        CargoService.crear(self.cargo)
 
     def tearDown(self):
         db.session.remove()
-        db.drop_all()  #borra tablas despues de cada test
+        db.drop_all()
         self.app_context.pop()
 
     def test_app(self):
         self.assertIsNotNone(current_app)
-        
-    def test_autoridad(self):
-        autoridad = Autoridad()
-        autoridad.nombre="Dra. Ana Prez"
-        autoridad.cargo="Decana"
-        autoridad.telefono="123456789"
-        autoridad.email="ana.perezuniversidad.edu"
-        
-        self.assertEqual(autoridad.nombre, "Dra. Ana Prez")
-        self.assertEqual(autoridad.cargo, "Decana")
+
+    def test_autoridad_creation(self):
+        autoridad = Autoridad(
+            nombre="Dra. Ana Perez",
+            telefono="123456789",
+            email="ana.perez@universidad.edu",
+            cargo_id=self.cargo.id
+        )
+        self.assertEqual(autoridad.nombre, "Dra. Ana Perez")
         self.assertEqual(autoridad.telefono, "123456789")
-        self.assertEqual(autoridad.email, "ana.perezuniversidad.edu")
-    
+        self.assertEqual(autoridad.email, "ana.perez@universidad.edu")
+        self.assertEqual(autoridad.cargo_id, self.cargo.id)
+
     def test_crear_autoridad(self):
-        autoridad = self.__nueva_autoridad()
-        autoridad_guardada = AutoridadService.crear_autoridad(autoridad)
-        
-        self.assertIsNotNone(autoridad_guardada)
-        self.assertIsNotNone(autoridad_guardada.id)
-        self.assertGreaterEqual(autoridad_guardada.id,1)
-        self.assertEqual(autoridad_guardada.nombre, autoridad.nombre)
-        
+        autoridad = self._nueva_autoridad(self.cargo.id)
+        guardada = AutoridadService.crear_autoridad(autoridad)
+
+        self.assertIsNotNone(guardada.id)
+        self.assertGreaterEqual(guardada.id, 1)
+        self.assertEqual(guardada.nombre, "Dra. Ana Perez")
+        self.assertEqual(guardada.cargo_id, self.cargo.id)
+
     def test_buscar_autoridad_por_id(self):
-        autoridad = self.__nueva_autoridad()
-        AutoridadService.crear_autoridad(autoridad)
-        resultado = AutoridadService.buscar_por_id(autoridad.id)
-        self.assertIsNotNone(resultado)
-        self.assertEqual(resultado.nombre, "Dra. Ana Perez")
-    
+        autoridad = self._nueva_autoridad(self.cargo.id)
+        guardada = AutoridadService.crear_autoridad(autoridad)
+
+        encontrada = AutoridadService.buscar_por_id(guardada.id)
+        self.assertIsNotNone(encontrada)
+        self.assertEqual(encontrada.nombre, "Dra. Ana Perez")
+        self.assertEqual(encontrada.cargo_id, self.cargo.id)
+
+    def test_buscar_autoridades(self):
+        a1 = self._nueva_autoridad(self.cargo.id)
+        a2 = self._nueva_autoridad(self.cargo.id)
+        a2.nombre = "Dra. Beatriz"
+
+        AutoridadService.crear_autoridad(a1)
+        AutoridadService.crear_autoridad(a2)
+
+        autoridades = AutoridadService.buscar_todas()
+        self.assertEqual(len(autoridades), 2)
+        self.assertIn(a1, autoridades)
+        self.assertIn(a2, autoridades)
+
     def test_actualizar_autoridad(self):
-        autoridad = self.__nueva_autoridad()  
-        AutoridadService.crear_autoridad(autoridad)
+        guardada = AutoridadService.crear_autoridad(self._nueva_autoridad(self.cargo.id))
 
-        autoridad_actualizada = Autoridad()
-        autoridad_actualizada.nombre = "Dra. Belen"
-        autoridad_actualizada.cargo = "Decana"
-        autoridad_actualizada.email = "email"
-        autoridad_actualizada.telefono = "2604567688"
+        categoria2 = CategoriaCargo(nombre="Académico")
+        CategoriaCargoService.crear(categoria2)
 
-        autoridad_modificada = AutoridadService.actualizar_autoridad(autoridad.id, autoridad_actualizada)
+        nuevo_cargo = Cargo(nombre="Vicedecano", puntos=3, categoria_cargo_id=categoria2.id)
+        CargoService.crear(nuevo_cargo)
 
-        autoridad_encontrada = AutoridadService.buscar_por_id(autoridad.id)
-        self.assertIsNotNone(autoridad_encontrada)
-        self.assertIsNotNone(autoridad_encontrada.id)
-        self.assertGreaterEqual(autoridad_encontrada.id, 1)
-        self.assertEqual(autoridad_encontrada.nombre, autoridad_modificada.nombre)
-        self.assertEqual(autoridad_encontrada.cargo, autoridad_modificada.cargo)
-        self.assertEqual(autoridad_encontrada.email, autoridad_modificada.email)
-        self.assertEqual(autoridad_encontrada.telefono, autoridad_modificada.telefono)
+        data_update = Autoridad(
+            nombre="Dra. Belén",
+            telefono="2604567688",
+            email="belen@universidad.edu",
+            cargo_id=nuevo_cargo.id
+        )
+        AutoridadService.actualizar_autoridad(guardada.id, data_update)
 
-        
+        encontrada = AutoridadService.buscar_por_id(guardada.id)
+        self.assertEqual(encontrada.nombre, "Dra. Belén")
+        self.assertEqual(encontrada.telefono, "2604567688")
+        self.assertEqual(encontrada.email, "belen@universidad.edu")
+        self.assertEqual(encontrada.cargo_id, nuevo_cargo.id)
+
     def test_borrar_autoridad(self):
-        autoridad = self.__nueva_autoridad()
-        AutoridadService.crear_autoridad(autoridad)
-        AutoridadService.borrar_autoridad(autoridad.id)
-        autoridad_encontrada = AutoridadService.buscar_por_id(autoridad.id)
-        self.assertIsNone(autoridad_encontrada)
+        guardada = AutoridadService.crear_autoridad(self._nueva_autoridad(self.cargo.id))
+        AutoridadService.borrar_autoridad(guardada.id)
+        self.assertIsNone(AutoridadService.buscar_por_id(guardada.id))
 
-    def __nueva_autoridad(self):
+    def test_autoridad_tiene_cargo(self):
+        guardada = AutoridadService.crear_autoridad(self._nueva_autoridad(self.cargo.id))
+        encontrada = AutoridadService.buscar_por_id(guardada.id)
+
+        self.assertIsNotNone(encontrada.cargo)
+        self.assertEqual(encontrada.cargo.id, self.cargo.id)
+        self.assertEqual(encontrada.cargo.nombre, self.cargo.nombre)
+
+    def _nueva_autoridad(self, cargo_id: int) -> Autoridad:
         return Autoridad(
             nombre="Dra. Ana Perez",
-            cargo="Decana",
             telefono="123456789",
-            email="ana.perezuniversidad.edu"
+            email="ana.perez@universidad.edu",
+            cargo_id=cargo_id
         )
 
 if __name__ == '__main__':
