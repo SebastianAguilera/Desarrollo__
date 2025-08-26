@@ -1,5 +1,7 @@
 from app import db
 from app.models import Plan
+from app.models import PlanMateria
+from app.models.materia import Materia
 
 class PlanRepository:
   @staticmethod
@@ -29,3 +31,16 @@ class PlanRepository:
     db.session.delete(plan)
     db.session.commit()
     return plan
+  
+  @staticmethod
+  def agregar_materias(plan: Plan, materias: list[PlanMateria]) -> Plan:
+    db.session.add(plan)
+    for plan_materia in materias:
+      plan_materia.plan = plan
+    plan.materias.extend(materias)
+    db.session.commit()
+    return plan
+  
+  @staticmethod
+  def buscar_todos_plan_materia() -> list[PlanMateria]:
+    return db.session.query(PlanMateria).all()

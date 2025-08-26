@@ -9,8 +9,7 @@ class MateriaMapping(Schema):
     horas_dictadas = fields.String(required=True, validate=validate.Length(min=1, max=50))
     promocional = fields.Boolean(required=True)
     nivel = fields.String(required=True, validate=validate.Length(min=1, max=50))
-    area_id = fields.Integer(required=True)
-    
+    area_id = fields.Integer(required=False)
     
     @post_load
     def nueva_materia(self, data, **kwargs):

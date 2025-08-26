@@ -1,15 +1,24 @@
 from flask import jsonify, Blueprint, request 
-from app.mapping.plan_mapping import PlanMapping
+from app.mapping import PlanMapping, PlanMateriaMapping, BulkMateriasMapping
 from app.services.plan_service import PlanService
 from app.validators import validate_with
 
+from marshmallow import ValidationError
+
 plan_bp = Blueprint('plan', __name__)
 plan_mapping = PlanMapping()
+plan_materia_mapping = PlanMateriaMapping()
+bulk_mapping = BulkMateriasMapping()
 
 @plan_bp.route('/plan', methods=['GET'])
 def buscar_todos():
     planes = PlanService.buscar_todos()
     return plan_mapping.dump(planes, many=True), 200 
+
+@plan_bp.route('/plan/materias', methods=['GET'])
+def buscar_todas_las_materias():
+    materias = PlanService.buscar_todos_plan_materia()
+    return plan_materia_mapping.dump(materias, many=True), 200
 
 @plan_bp.route('/plan/<hashid:id>', methods=['GET']) 
 def buscar_por_id(id):
@@ -22,6 +31,17 @@ def crear():
     plan = plan_mapping.load(request.get_json())
     PlanService.crear(plan)
     return jsonify("Plan creado exitosamente"), 201 
+
+@plan_bp.post('/plan/<hashid:id>/materias')
+def agregar_materias(id):
+    try:
+        data = bulk_mapping.load(request.get_json() or {})
+        pms = data["materias"]  # lista de PlanMateria
+    except ValidationError as e:
+        return jsonify({"errors": e.messages}), 400
+
+    PlanService.agregar_materias(id, pms)
+    return jsonify({"message": "Materias agregadas exitosamente"}), 201
 
 @plan_bp.route('/plan/<hashid:id>', methods=['PUT'])  
 @validate_with(PlanMapping)

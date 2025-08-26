@@ -1,7 +1,7 @@
-from app.models import Plan
+from app.models import Plan, PlanMateria
 from app.repositories import PlanRepository
-class PlanService:
-  
+
+class PlanService:  
   @staticmethod
   def crear(plan : Plan) -> Plan:
     return PlanRepository.crear(plan)
@@ -29,3 +29,14 @@ class PlanService:
   @staticmethod
   def borrar_por_id(id: int):
     return PlanRepository.borrar_por_id(id)
+  
+  @staticmethod
+  def agregar_materias(plan_id: int, materias: list[PlanMateria]) -> Plan:
+    plan = PlanRepository.buscar_por_id(plan_id)
+    if not plan:
+      return None
+    return PlanRepository.agregar_materias(plan, materias)
+  
+  @staticmethod
+  def buscar_todos_plan_materia() -> list[PlanMateria]:
+    return PlanRepository.buscar_todos_plan_materia()
