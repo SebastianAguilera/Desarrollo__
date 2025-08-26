@@ -1,5 +1,5 @@
 from app.models import Departamento
-from app.repositories.departamento_repositorio import DepartamentoRepository
+from app.repositories import DepartamentoRepository
 
 class DepartamentoService:
   @staticmethod
@@ -7,15 +7,22 @@ class DepartamentoService:
     DepartamentoRepository.crear_departamento(departamento)
     return departamento
 
+  @staticmethod
   def buscar_departamento(id: int):
     departamento = DepartamentoRepository.buscar_departamento(id)
     return departamento
+  
+  @staticmethod
+  def listar_departamentos() -> list[Departamento]:
+    return DepartamentoRepository.listar_departamentos()
     
+  @staticmethod
   def actualizar_departamento(departamento: Departamento, id: int):
     DepartamentoRepository.actualizar_departamento(departamento, id)
     return departamento
   
+  @staticmethod
   def eliminar_departamento(id: int):
-    departamento = DepartamentoRepository.eliminar_departamento(id)
+    return DepartamentoRepository.eliminar_departamento(id)
     
   

@@ -14,6 +14,10 @@ class DepartamentoRepository:
     return db.session.query(Departamento).filter(Departamento.id == id).one_or_none()
   
   @staticmethod
+  def listar_departamentos() -> list[Departamento]:
+    return db.session.query(Departamento).all()
+
+  @staticmethod
   def actualizar_departamento(departamento: Departamento, id: int) -> Departamento:
     entity = DepartamentoRepository.buscar_departamento(id)
     entity.nombre = departamento.nombre
