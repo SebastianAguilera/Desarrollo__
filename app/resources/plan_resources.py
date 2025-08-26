@@ -32,7 +32,7 @@ def crear():
     PlanService.crear(plan)
     return jsonify("Plan creado exitosamente"), 201 
 
-@plan_bp.post('/plan/<hashid:id>/materias')
+@plan_bp.route('/plan/<hashid:id>/materias', methods=['POST'])
 def agregar_materias(id):
     try:
         data = bulk_mapping.load(request.get_json() or {})
