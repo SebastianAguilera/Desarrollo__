@@ -3,9 +3,9 @@ from markupsafe import escape
 from app.models import Grupo
 
 class GrupoMapping(Schema):
-    id = fields.Int(dump_only=True)
+    hashids = fields.String(attribute="hashid", dump_only=True)
     nombre = fields.Str(required=True, validate=validate.Length(min=1, max=100))
-   
+
     @post_load
     def nuevo_grupo(self, data, **kwargs):  
         for campo in ['nombre']:
