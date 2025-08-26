@@ -85,3 +85,4 @@ Gualpa Agostina
 González Luciana
 Perez Jazmín
 Choquevillca Celeste
+Guzman Dana
