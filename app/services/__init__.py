@@ -17,4 +17,5 @@ from .materia_service import MateriaService
 from .tipoDedicacionService import TipoDedicacionService
 from .usuario_service import UsuarioService
 from .nota_service import NotaService
+from .tipodocumento_service import TipoDocumentoService
 from .documentos_office_service import Documents, PDFDocument, ODTDocument, DOCXDocument

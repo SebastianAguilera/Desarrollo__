@@ -18,3 +18,4 @@ from .materia_repository import MateriaRepository
 from .tipoDedicacion_repository import TipoDedicacionRepository
 from .usuario_repository import UsuarioRepository
 from .nota_repository import NotaRepository
+from .tipodocumento_repository import TipoDocumentoRepository
