@@ -12,7 +12,11 @@ class OrientacionRepository:
   @staticmethod
   def buscar_orientacion(id: int) -> Orientacion:
     return db.session.query(Orientacion).filter(Orientacion.id == id).one_or_none()
-  
+
+  @staticmethod
+  def listar_orientaciones() -> list[Orientacion]:
+    return db.session.query(Orientacion).all()
+
   @staticmethod
   def actualizar_orientacion(orientacion: Orientacion, id: int) -> Orientacion:
     entity = OrientacionRepository.buscar_orientacion(id)
