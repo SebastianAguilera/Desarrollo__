@@ -65,3 +65,16 @@ class AlumnoService:
         "logo_ministerio": logo_ministerio,
         "logo_utn": logo_utn
      }
+  
+  @staticmethod
+  def generar_ficha_alumno(id: int, tipo: str) -> BytesIO:
+      alumno = AlumnoRepository.buscar_alumno(id)
+      if not alumno:
+          return None
+      context=AlumnoService.__obtener_alumno(alumno)
+      documento = obtener_tipo_documento(tipo)
+      return documento.generar(
+         carpeta='certificados',
+         plantilla=f'plantilla_{tipo}',
+         context=context
+      )

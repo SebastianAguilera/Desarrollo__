@@ -31,3 +31,4 @@ def reporte_en_docx(id: int):
     )
 
 
+

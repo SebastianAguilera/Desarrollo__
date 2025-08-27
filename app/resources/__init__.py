@@ -15,3 +15,4 @@ from .departamento_resource import departamento_bp
 from .grado_resource import grado_bp
 from .orientacion_resource import orientacion_bp
 from .plan_resources import plan_bp
+from .ficha_alumno_resouce import ficha_bp
