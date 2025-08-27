@@ -1,8 +1,6 @@
 import unittest
 from flask import current_app
 from app import create_app
-from app.services import AlumnoService
-from app.services import UsuarioService
 from app.models import Alumno, Universidad, Especialidad, Facultad, Usuario
 from app.services import AlumnoService, UniversidadService, EspecialidadService, FacultadService, UsuarioService
 from app import db
