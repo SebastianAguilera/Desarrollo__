@@ -6,6 +6,7 @@ import datetime
 from io import BytesIO
 from app.services.documentos_office_service import obtener_tipo_documento
 import base64
+import logging
 
 def imagen_a_base64(ruta: str) -> str:
     with open(ruta, 'rb') as image_file:
@@ -32,7 +33,6 @@ class AlumnoService:
       if not alumno:
           return None
       context=AlumnoService.__obtener_alumno(alumno)
-
       documento = obtener_tipo_documento(tipo)
 
       if not documento:
@@ -42,6 +42,22 @@ class AlumnoService:
          plantilla=f'certificado_{tipo}',
          context=context
       )
+  @staticmethod
+  def generar_ficha_alumno(id: int, tipo: str) -> BytesIO:
+      alumno = AlumnoRepository.buscar_alumno(id)
+      if not alumno:
+          return None
+      context=AlumnoService.__obtener_alumno(alumno)
+      documento = obtener_tipo_documento(tipo)
+      logging.info(f"Generando ficha para el alumno: {alumno.nombre} {alumno.apellido} en formato {tipo}")
+      logging.info(f"Contexto de la ficha: {context}")
+      logging.info(f"Documento obtenido: {documento.__name__}")
+      return documento.generar(
+         carpeta='certificados',
+         plantilla=f'fichatecnica_{tipo}',
+         context=context
+      )
+  
      
   @staticmethod
   def __obtener_fecha_actual():
@@ -66,17 +82,6 @@ class AlumnoService:
         "logo_utn": logo_utn
      }
   
-  @staticmethod
-  def generar_ficha_alumno(id: int, tipo: str) -> BytesIO:
-      alumno = AlumnoRepository.buscar_alumno(id)
-      if not alumno:
-          return None
-      context=AlumnoService.__obtener_alumno(alumno)
-      documento = obtener_tipo_documento(tipo)
-      return documento.generar(
-         carpeta='certificados',
-         plantilla=f'plantilla_{tipo}',
-         context=context
-      )
+  
   
   

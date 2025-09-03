@@ -11,7 +11,6 @@ def certificado_en_pdf(id: int):
 @certificado_bp.route('/certificado/<int:id>/odt', methods=['GET'])
 def certificado_en_odt(id: int):
     odt_io = AlumnoService.generar_certificado_alumno_regular_odt(id, 'odt')
-    
     return send_file(
         odt_io,
         mimetype='application/vnd.oasis.opendocument.text',

@@ -7,6 +7,7 @@ from xhtml2pdf import pisa
 from python_odt_template.jinja import get_odt_renderer
 from docxtpl import DocxTemplate
 from abc import ABC, abstractmethod
+import logging
 
 class Documents(ABC):
    @staticmethod
