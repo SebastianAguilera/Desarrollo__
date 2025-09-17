@@ -4,6 +4,7 @@ from app import create_app, db
 from app.models import Universidad, Facultad
 from app.services import UniversidadService,  FacultadService
 import os
+import json
 
 class CartTestCase(unittest.TestCase):
 
@@ -13,6 +14,8 @@ class CartTestCase(unittest.TestCase):
         self.app_context = self.app.app_context()
         self.app_context.push()
         db.create_all()
+        
+        self.client = self.app.test_client()
 
     def tearDown(self):
         db.session.remove()
@@ -114,6 +117,37 @@ class CartTestCase(unittest.TestCase):
         universidad.tipo = "publica"
         return universidad
 
+    def test_post_universidad_datos_validos(self):
+        payload = {
+            "nombre": "Universidad de Prueba",
+            "sigla": "UDP",
+            "tipo": "Publica"
+        }
+        response = self.client.post(
+            "/api/v1/universidad",
+            data=json.dumps(payload),
+            content_type="application/json"
+        )
 
+        self.assertEqual(response.status_code, 201)  # 201 Created
+        self.assertIn("Universidad", response.get_data(as_text=True))
+    
+    def test_post_universidad_datos_invalidos(self):
+        # Falta 'sigla' y 'tipo'
+        payload = {"nombre": "Universidad Incompleta"}
+        response = self.client.post(
+            "/api/v1/universidad",
+            data=json.dumps(payload),
+            content_type="application/json"
+        )
+
+        self.assertEqual(response.status_code, 400)  # Bad Request
+        json_response = response.get_json()
+        self.assertIn("sigla", json_response)  # debe indicar error en sigla
+        print(response.status_code)
+        print(response.get_json())
+
+
+            
 if __name__ == '__main__':
     unittest.main()
