@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from app import db
 
+
 @dataclass(init=False, repr=True, eq=True)
 class Alumno(db.Model):
     __tablename__ = 'alumnos'
@@ -15,7 +16,7 @@ class Alumno(db.Model):
     fechaIngreso = db.Column(db.String(20), nullable=False)
     carrera = db.Column(db.String(100), nullable=False)
     
-    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), unique = True, nullable = False)
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), unique = True, nullable = True)
     usuario = db.relationship('Usuario', back_populates='alumno')
 
     #relacion de alumno con notas
@@ -26,7 +27,7 @@ class Alumno(db.Model):
     universidad = db.relationship('Universidad', back_populates='alumnos')
 
     #relacion de alumno con especialidad
-    especialidad_id : int =db.Column(db.Integer, db.ForeignKey('especialidades.id'), nullable = False)
+    especialidad_id : int =db.Column(db.Integer, db.ForeignKey('especialidades.id'), nullable = True)
     especialidad = db.relationship('Especialidad', back_populates = 'alumnos')
 
 
