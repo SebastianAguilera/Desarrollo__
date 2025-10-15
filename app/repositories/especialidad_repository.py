@@ -29,3 +29,4 @@ class EspecialidadRepository:
         if entity:
             db.session.delete(entity)
             db.session.commit()
+ 

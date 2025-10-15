@@ -20,7 +20,7 @@ def crear():
 @especialidad_bp.route('/especialidad/<int:id>', methods=['PUT'])
 def actualizar(id):
     especialidad = especialidad_mapping.load(request.get_json())
-    EspecialidadService.actualizar_especialidad(especialidad, id)
+    EspecialidadService.actualizar_especialidad(id, especialidad)
     return jsonify("Especialidad actualizada exitosamente"), 200        
 
 @especialidad_bp.route('/especialidad/<int:id>', methods=['DELETE'])
@@ -34,5 +34,3 @@ def sanitizar_especialidad_entrada(request):
     especialidad.letra = escape(especialidad.letra)
     especialidad.observacion = escape(especialidad.observacion)
     return especialidad 
-
-
