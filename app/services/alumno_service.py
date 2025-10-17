@@ -45,6 +45,7 @@ class AlumnoService:
   @staticmethod
   def generar_ficha_alumno(id: int, tipo: str) -> BytesIO:
       alumno = AlumnoRepository.buscar_alumno(id)
+      
       if not alumno:
           return None
       context=AlumnoService.__obtener_alumno(alumno)

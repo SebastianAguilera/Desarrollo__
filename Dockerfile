@@ -7,7 +7,7 @@ ENV PATH=$PATH:/home/sysacad/.local/bin
 RUN useradd --create-home --home-dir /home/sysacad sysacad
 RUN apt-get update
 RUN apt-get install -y python3-dev build-essential libpq-dev python3-psycopg2
-RUN apt-get install -y curl htop iputils-ping
+#RUN apt-get install -y curl htop iputils-ping erramienta para probar microservicios
 RUN apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false
 RUN rm -rf /var/lib/apt/lists/*
 
